@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>MonadLand</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="game-scene">
+        <div id="countdown-scene" class="scene">
+          <div class="inner">
+            <h1 class="countdown_text">Get Ready!</h1>
+            <p class="countdown"></p>
+          </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div class="scoreboard__wrapper">
+          <ul></ul>
+          <h3>Total <span class="highlight">00:00</span></h3>
+        </div>
+        <div class="speed-meter__wrapper">
+          <div class="speed-meter__inner" style="display: none">
+            <img
+              src="/assets/ui/speedmeter.png"
+              alt="speed-meter"
+              id="speed-meter"
+            />
+            <div id="nitro-indicator"></div>
+            <div id="obstacle-drop-indicator"></div>
+          </div>
+        </div>
+        <div class="countdown__wrapper">
+          <p class="countdown"></p>
+        </div>
+        <div class="skip__wrapper">
+          <button id="skip-btn">SKIP</button>
+        </div>
+      </div>
+      <div id="start-scene" class="scene">
+        <div class="inner">
+          <h1>MonadLand</h1>
+          <button>About</button>
+          <button class="mainBtn">Start</button>
+        </div>
+        <div class="dialog nickname">
+          <div class="dialog__inner">
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Your nickname..."
+              id="nickname"
+              value="noname"
+            />
+            <div class="btn_wrapper">
+              <button>Return</button>
+              <button class="mainBtn">Submit</button>
+            </div>
+          </div>
+        </div>
+        <img
+          class="start-scene__bg"
+          src="/assets/ui/landing-screen.png"
+          alt="landing-screen"
+        />
+      </div>
+
+      <div id="selection-scene" class="scene">
+        <div class="inner">
+          <div class="selection-card__wrapper">
+            <div class="selection-card track-selection">
+              <img
+                class="selection-card__image"
+                src="/assets/ui/track-previews/gravel-track-preview.png"
+                alt="snow-track-preview"
+              />
+              <div class="selection__wrapper">
+                <button class="selection__button prev">⮜</button>
+                <div class="title">
+                  <div
+                    class="selection__option selected"
+                    data-id="1"
+                    data-map="gravel"
+                  >
+                    Gravel
+                  </div>
+                  <div class="selection__option" data-id="2" data-map="grass">
+                    Grass
+                  </div>
+                  <div class="selection__option" data-id="3" data-map="snow">
+                    Snow
+                  </div>
+                </div>
+                <button class="selection__button next">⮞</button>
+              </div>
+            </div>
+            <div class="selection-card car-selection">
+              <div class="selection-card__image car-preview">
+                <div class="color-selection">
+                  <button class="color-box" data-color="black"></button>
+                  <button class="color-box selected" data-color="blue"></button>
+                  <button class="color-box" data-color="green"></button>
+                  <button class="color-box" data-color="pink"></button>
+                  <button class="color-box" data-color="yellow"></button>
+                </div>
+              </div>
+              <div class="selection__wrapper">
+                <button class="selection__button prev">⮜</button>
+                <div class="title">
+                  <span
+                    class="selection__option selected"
+                    data-id="1"
+                    data-car="opel"
+                    >Opel</span
+                  >
+                  <span class="selection__option" data-id="2" data-car="peugeot"
+                    >Pezio</span
+                  >
+                </div>
+                <button class="selection__button next">⮞</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex">
+            <button id="back-btn">Back</button>
+            <button id="play-btn" class="mainBtn">Play</button>
+          </div>
+          <img src="/assets/ui/level" alt="" />
+        </div>
+      </div>
+      <div id="about-scene" class="scene">
+        <div class="inner">
+          <h2>About</h2>
+          <p>
+            MonadLand is a 2D top-down racing game inspired by classic arcade
+            racers. The game is developed using TypeScript, HTML, and CSS. It
+            features multiple tracks and car selections.
+          </p>
+          <button>Back</button>
+          <img
+            class="start-scene__bg"
+            src="/assets/ui/landing-screen.png"
+            alt="landing-screen"
+          />
+        </div>
+      </div>
+      <div id="result-scene" class="scene">
+        <img src="/assets/ui/result-screen.png" alt="" />
+
+        <div class="inner">
+          <div class="winner-section">
+            <h2>Winner!</h2>
+            <p><strong class="winner_nickname"></strong></p>
+            <p class="winner_time"></p>
+          </div>
+          <div class="wrapper">
+            <div class="race-results">
+              <h3>Race Results</h3>
+              <ul>
+                <li>1st - Player 1 - 7.3 sec</li>
+                <li>2nd - Player 2 - 9.4 sec</li>
+                <li>3rd - Player 3 - 12.0 sec</li>
+              </ul>
+            </div>
+
+            <!-- Historia wyników gracza -->
+            <div class="player-history">
+              <h3>Player History</h3>
+              <ul class="player-results"></ul>
+            </div>
+          </div>
+
+          <button>Back</button>
+        </div>
+      </div>
+      <div id="loading-screen" class="scene">
+        <img src="/logo.png" alt="" />
+        <h2>LOADING</h2>
+      </div>
+      <div class="dialog-overlay">
+        <div class="dialog-overlay__text">Lorem ipsum</div>
+      </div>
+    </div>
+
+    <div id="game-pause-overlay">PAUSED</div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

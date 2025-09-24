@@ -1,0 +1,16 @@
+# Ignore artifacts:
+build
+coverage
+dist
+node_modules
+
+# Ignore generated files
+*.min.js
+*.min.css
+public/assets/**
+*.lock
+*.log
+
+# Ignore config files that shouldn't be formatted
+*.json
+*.md

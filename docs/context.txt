@@ -1,0 +1,1576 @@
+================
+CODE SNIPPETS
+================
+TITLE: Download eventwatch.c for local installation example
+DESCRIPTION: This set of commands creates a new directory for a CMake project that uses a locally installed SDK and downloads the 'eventwatch.c' source file from a GitHub URL. This prepares the environment for compiling 'eventwatch.c' using CMake's find_package functionality, pointing to the previously installed SDK.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ mkdir ~/src/event-sdk-example-c-find-package
+$ cd ~/src/event-sdk-example-c-find-package
+$ curl -O https://raw.githubusercontent.com/category-labs/monad/refs/heads/release/exec-events-sdk-v1.x/category/event/example/eventwatch.c
+```
+
+--------------------------------
+
+TITLE: Install Monad Event SDK locally with CMake
+DESCRIPTION: This sequence of CMake and shell commands installs the Monad Event SDK ('libmonad_event.a') to a specified local directory ('/tmp/sdk-install-demo'). It first clones the SDK repository, then configures the build for the event category with Ninja, setting the installation prefix and build type. Finally, it builds the SDK and installs it.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ git clone -b release/exec-events-sdk-v1.x https://github.com/category-labs/monad.git \
+  ~/src/monad-exec-events-sdk
+$ cmake -S ~/src/monad-exec-events-sdk/category/event \
+  -B ~/build/monad-exec-events-sdk-v1-release -G Ninja \
+  -DCMAKE_INSTALL_PREFIX=/tmp/sdk-install-demo -DCMAKE_BUILD_TYPE=RelWithDebInfo
+$ cmake --build ~/build/monad-exec-events-sdk-v1-release
+$ cmake --install ~/build/monad-exec-events-sdk-v1-release
+```
+
+--------------------------------
+
+TITLE: Download Example Program Source - Shell Commands
+DESCRIPTION: Commands to create a directory, navigate into it, and download the C example program source file (eventwatch.c) using curl.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: shell
+CODE:
+```
+$ mkdir ~/src/event-sdk-example-c
+$ cd ~/src/event-sdk-example-c
+$ curl -O https://raw.githubusercontent.com/category-labs/monad/refs/heads/release/exec-events-sdk-v1.x/category/event/example/eventwatch.c
+```
+
+--------------------------------
+
+TITLE: Run Rust Block Explorer Example
+DESCRIPTION: Command to run the Rust 'Block Explorer' TUI example from the upstream `monad-bft` repository. This provides a more sophisticated example of the execution event system.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: shell
+CODE:
+```
+cargo run -p monad-exec-events --example explorer
+```
+
+--------------------------------
+
+TITLE: Create new Rust package and download example code
+DESCRIPTION: Steps to create a new Rust project using Cargo and download the example event watch program from GitHub.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/rust
+
+LANGUAGE: bash
+CODE:
+```
+$ cargo new --bin event-sdk-example-rust
+$ cd event-sdk-example-rust
+
+$ curl https://raw.githubusercontent.com/category-labs/monad-bft/refs/heads/release/exec-events-sdk-v1.x/monad-exec-events/examples/eventwatch.rs > src/main.rs
+```
+
+--------------------------------
+
+TITLE: Run Rust Example Program
+DESCRIPTION: Command to run the Rust SDK example program. Requires the execution daemon to be running with execution events enabled via the `--exec-event-ring` argument.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: shell
+CODE:
+```
+cargo run -- -d
+```
+
+--------------------------------
+
+TITLE: Install Project Dependencies
+DESCRIPTION: Navigates to the project directory and installs necessary dependencies using npm. Supports alternative package managers like yarn, bun, or pnpm.
+
+SOURCE: https://docs.monad.xyz/guides/reown-guide
+
+LANGUAGE: bash
+CODE:
+```
+cd my-monad-appkit-app
+npm install
+```
+
+--------------------------------
+
+TITLE: Install web3.py
+DESCRIPTION: Installs the web3.py library, a Python dependency for interacting with Ethereum blockchains, including WebSocket connections.
+
+SOURCE: https://docs.monad.xyz/reference/websockets
+
+LANGUAGE: bash
+CODE:
+```
+pip install web3
+```
+
+--------------------------------
+
+TITLE: Create CMakeLists.txt for Example Program - CMake
+DESCRIPTION: A basic CMakeLists.txt file to set up a C project named 'eventwatch' and prepare for SDK integration.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: cmake
+CODE:
+```
+cmake_minimum_required(VERSION 3.21)
+
+
+project(eventwatch LANGUAGES C)
+
+
+#
+# SDK setup
+
+```
+
+--------------------------------
+
+TITLE: Run Development Server
+DESCRIPTION: Starts the development server for the application. The app will typically be available at `http://localhost:3000`. Supports alternative commands for different package managers.
+
+SOURCE: https://docs.monad.xyz/guides/reown-guide
+
+LANGUAGE: bash
+CODE:
+```
+npm run dev
+```
+
+--------------------------------
+
+TITLE: Install Project Dependencies
+DESCRIPTION: Installs the required libraries for connecting wallets and managing application state.
+
+SOURCE: https://docs.monad.xyz/guides/blinks-guide
+
+LANGUAGE: bash
+CODE:
+```
+npm install connectkit @tanstack/react-query @dialectlabs/blinks
+```
+
+--------------------------------
+
+TITLE: Create New Project with AppKit CLI
+DESCRIPTION: Initiates the creation of a new project configured with Reown AppKit. Prompts for project name, framework (e.g., Next.js), and blockchain library (e.g., Wagmi or Ethers).
+
+SOURCE: https://docs.monad.xyz/guides/reown-guide
+
+LANGUAGE: bash
+CODE:
+```
+npx @reown/appkit-cli
+```
+
+--------------------------------
+
+TITLE: Install ethers.js
+DESCRIPTION: Installs the ethers.js library, a JavaScript dependency for interacting with Ethereum blockchains, including WebSocket connections.
+
+SOURCE: https://docs.monad.xyz/reference/websockets
+
+LANGUAGE: bash
+CODE:
+```
+npm install ethers
+```
+
+--------------------------------
+
+TITLE: Configure Environment Variables
+DESCRIPTION: Example environment variables required for Thirdweb and Web Push configuration.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-thirdweb
+
+LANGUAGE: env
+CODE:
+```
+# Thirdweb Configuration (Required)
+NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id_here
+
+
+# Web Push (Required)
+WEB_PUSH_EMAIL=user@example.com
+WEB_PUSH_PRIVATE_KEY=your_vapid_private_key
+NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY=your_vapid_public_key
+```
+
+--------------------------------
+
+TITLE: Install Project Dependencies
+DESCRIPTION: Installs the necessary project dependencies using Yarn.
+
+SOURCE: https://docs.monad.xyz/templates/farcaster-miniapp/getting-started
+
+LANGUAGE: bash
+CODE:
+```
+yarn
+```
+
+--------------------------------
+
+TITLE: Run Rust example program
+DESCRIPTION: Command to execute the compiled Rust program, demonstrating how to pass command-line arguments.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/rust
+
+LANGUAGE: bash
+CODE:
+```
+cargo run -- -h
+```
+
+--------------------------------
+
+TITLE: Build and Start Project Commands
+DESCRIPTION: These commands are used to build the project after making changes, such as adding new tokens, and then to start the application. Running `npm run build` compiles your project, applying all modifications. `npm run start` then launches the application, making the new tokens available in the UI.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-0x-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+npm run build
+npm run start
+```
+
+--------------------------------
+
+TITLE: Set up Local Environment Variables
+DESCRIPTION: Copies the example environment file to `.env.local` for local development configuration.
+
+SOURCE: https://docs.monad.xyz/templates/farcaster-miniapp/getting-started
+
+LANGUAGE: bash
+CODE:
+```
+cp .env.example .env.local
+```
+
+--------------------------------
+
+TITLE: Install Foundryup (Shell)
+DESCRIPTION: Installs the Foundryup tool, which is the official installer for the Foundry toolchain. This command downloads and executes an installation script.
+
+SOURCE: https://docs.monad.xyz/guides/deploy-smart-contract/foundry
+
+LANGUAGE: shell
+CODE:
+```
+curl -L https://foundry.paradigm.xyz | bash
+```
+
+--------------------------------
+
+TITLE: Run Development Server
+DESCRIPTION: Starts the development server for the Farcaster Mini App template.
+
+SOURCE: https://docs.monad.xyz/templates/farcaster-miniapp/getting-started
+
+LANGUAGE: bash
+CODE:
+```
+yarn run dev
+```
+
+--------------------------------
+
+TITLE: Install Hardhat Dependencies
+DESCRIPTION: Navigates into the cloned Hardhat repository and installs project dependencies using Yarn.
+
+SOURCE: https://docs.monad.xyz/guides/scaffold-eth
+
+LANGUAGE: shell
+CODE:
+```
+cd scaffold-monad-hardhat && yarn install
+```
+
+--------------------------------
+
+TITLE: Install Cloudflared via Homebrew
+DESCRIPTION: Installs the `cloudflared` tool using the Homebrew package manager to expose local servers remotely.
+
+SOURCE: https://docs.monad.xyz/templates/farcaster-miniapp/getting-started
+
+LANGUAGE: bash
+CODE:
+```
+brew install cloudflared
+```
+
+--------------------------------
+
+TITLE: Install Foundry Binaries (Shell)
+DESCRIPTION: Installs the core Foundry binaries: forge, cast, anvil, and chisel. This command is run after foundryup has been installed.
+
+SOURCE: https://docs.monad.xyz/guides/deploy-smart-contract/foundry
+
+LANGUAGE: shell
+CODE:
+```
+foundryup
+```
+
+--------------------------------
+
+TITLE: Install Foundry Dependencies
+DESCRIPTION: Navigates into the cloned repository and installs project dependencies using Yarn. This is required before running any commands.
+
+SOURCE: https://docs.monad.xyz/guides/scaffold-eth
+
+LANGUAGE: shell
+CODE:
+```
+cd scaffold-monad-foundry && yarn install
+```
+
+--------------------------------
+
+TITLE: Clone monad-mcp-tutorial repository
+DESCRIPTION: Clones the GitHub repository containing starter code for the Monad MCP tutorial. Requires Git to be installed.
+
+SOURCE: https://docs.monad.xyz/guides/monad-mcp
+
+LANGUAGE: bash
+CODE:
+```
+git clone https://github.com/monad-developers/monad-mcp-tutorial.git
+```
+
+--------------------------------
+
+TITLE: Build eventwatch with CMake, Ninja, and alternate compiler
+DESCRIPTION: This command sequence demonstrates building the 'eventwatch' program using CMake with the Ninja build tool and specifying an alternative C compiler (gcc-15) via the CC environment variable. Similar to the previous example, it configures the build in a 'build' subdirectory and then uses 'ninja' to compile the project.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ CC=gcc-15 cmake -S ~/src/event-sdk-example-c -B ~/src/event-sdk-example-c/build -G Ninja
+$ cd ~/src/event-sdk-example-c/build
+$ ninja
+```
+
+--------------------------------
+
+TITLE: Example Command Line: Event Ring Path
+DESCRIPTION: An example of the command-line parameter specifying only the event ring file path.
+
+SOURCE: https://docs.monad.xyz/execution-events/event-ring
+
+LANGUAGE: bash
+CODE:
+```
+--exec-event-ring /var/lib/hugetlbfs/user/monad/pagesize-2MB/event-rings/monad-exec-events
+```
+
+--------------------------------
+
+TITLE: Install Solana Actions Dependencies
+DESCRIPTION: Installs necessary npm packages for building Solana Actions, including `@solana/actions`, `wagmi`, and `viem`. Assumes Node.js environment.
+
+SOURCE: https://docs.monad.xyz/guides/blinks-guide
+
+LANGUAGE: bash
+CODE:
+```
+npm install @solana/actions wagmi viem@2.x
+```
+
+--------------------------------
+
+TITLE: Start Local Blockchain Node (Foundry)
+DESCRIPTION: Starts a local blockchain node using Yarn. This command is essential for testing smart contract deployments locally.
+
+SOURCE: https://docs.monad.xyz/guides/scaffold-eth
+
+LANGUAGE: shell
+CODE:
+```
+yarn chain
+```
+
+--------------------------------
+
+TITLE: JavaScript: Real-time Data Streaming Example
+DESCRIPTION: Illustrates how a JavaScript library might abstract away the underlying Geth real-time events protocol. It focuses on presenting real-time data through a different API design, without explicit mention of subscription names like 'newHeads'.
+
+SOURCE: https://docs.monad.xyz/reference/websockets
+
+LANGUAGE: javascript
+CODE:
+```
+import { Web3 } from 'web3';
+
+const web3 = new Web3('ws://localhost:8546');
+
+web3.eth.subscribe('newHeads', (error, result) => {
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(result);
+    }
+});
+```
+
+--------------------------------
+
+TITLE: Configure Monad Testnet Network
+DESCRIPTION: Updates the `/src/config/index.ts` file to specify Monad Testnet as the network for the application, replacing the default networks.
+
+SOURCE: https://docs.monad.xyz/guides/reown-guide
+
+LANGUAGE: typescript
+CODE:
+```
+import { mainnet, monadTestnet } from '@reown/appkit/networks'
+
+
+export const networks = [monadTestnet] as [AppKitNetwork, ...AppKitNetwork[]]
+```
+
+--------------------------------
+
+TITLE: Clone Cat Token Tutorial Repository
+DESCRIPTION: Clones the starter repository for the CatToken tutorial and navigates into the project directory. This is the initial setup step for the project.
+
+SOURCE: https://docs.monad.xyz/guides/indexers/ghost
+
+LANGUAGE: bash
+CODE:
+```
+git clone https://github.com/chrischang/cat-token-tutorial.git
+cd cat-token-tutorial
+```
+
+--------------------------------
+
+TITLE: Create and Configure .env.local
+DESCRIPTION: Copies the example environment file and outlines the required environment variables for Privy and Pimlico configuration.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-privy-smart-wallet
+
+LANGUAGE: bash
+CODE:
+```
+cp .env.example .env.local
+
+# Privy 
+NEXT_PUBLIC_PRIVY_APP_ID=your_privy_app_id_here
+NEXT_PUBLIC_PRIVY_CLIENT_ID= # optional, you can leave this empty
+
+
+# Web Push
+WEB_PUSH_EMAIL=user@example.com
+WEB_PUSH_PRIVATE_KEY=your_vapid_private_key
+NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY=your_vapid_public_key
+
+
+# Pimlico
+NEXT_PUBLIC_PIMLICO_BUNDLER_URL=your_pimlico_bundler_url
+```
+
+--------------------------------
+
+TITLE: Install Dependencies with Yarn
+DESCRIPTION: Installs project dependencies using Yarn. This is a standard step for Node.js projects to manage package installations.
+
+SOURCE: https://docs.monad.xyz/templates/react-native-thirdweb-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+yarn install
+```
+
+--------------------------------
+
+TITLE: Configure Environment Variables for Project ID
+DESCRIPTION: Sets up the `.env` file in the project root to store the Project ID obtained from the Reown Dashboard. Environment variables prefixed with `NEXT_PUBLIC_` are exposed to the client.
+
+SOURCE: https://docs.monad.xyz/guides/reown-guide
+
+LANGUAGE: dotenv
+CODE:
+```
+NEXT_PUBLIC_PROJECT_ID="YOUR_PROJECT_ID_HERE"
+```
+
+--------------------------------
+
+TITLE: Build eventcap using CMake Toolchain
+DESCRIPTION: Command to build the `eventcap` project using a CMake toolchain file, simplifying the configuration of compilers and flags like `-march=x86-64-v4`, `-stdlib=libc++`, and `-fexperimental-library`.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: shell
+CODE:
+```
+$ cmake --toolchain <path-to-toolchain-file> -S ~/src/monad-eventcap/cmd/eventcap \
+  -B ~/build/monad-eventcap-release -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo
+```
+
+--------------------------------
+
+TITLE: Install Project Dependencies
+DESCRIPTION: Installs all necessary Node.js dependencies for the Hardhat project using npm.
+
+SOURCE: https://docs.monad.xyz/guides/deploy-smart-contract/hardhat
+
+LANGUAGE: bash
+CODE:
+```
+npm install
+```
+
+--------------------------------
+
+TITLE: Get Transaction by Hash Example (JSON)
+DESCRIPTION: Provides an example JSON response for the eth_getTransactionByHash RPC method, detailing transaction properties such as type, chain ID, nonce, gas, gas price, sender, receiver, value, input data, and signature components.
+
+SOURCE: https://docs.monad.xyz/reference/json-rpc/eth_getTransactionByHash
+
+LANGUAGE: json
+CODE:
+```
+{
+  "type": "0x2",
+  "chainId": "0x1",
+  "nonce": "0x16d",
+  "gas": "0x46a02",
+  "maxFeePerGas": "0x7fc1a20a8",
+  "maxPriorityFeePerGas": "0x59682f00",
+  "to": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+  "value": "0x4a6ed55bbcc180",
+  "accessList": [],
+  "input": "0x5ae401dc00000000000000000000000000000000000000000000000000000000628ced5b0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000000e442712a6700000000000000000000000000000000000000000000b3ff1489674e11c40000000000000000000000000000000000000000000000000000004a6ed55bbcc18000000000000000000000000000000000000000000000000000000000000000800000000000000000000000003cf412d970474804623bb4e3a42de13f9bca54360000000000000000000000000000000000000000000000000000000000000002000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000003a75941763f31c930b19c041b709742b0b31ebb600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000412210e8a00000000000000000000000000000000000000000000000000000000",
+  "r": "0x7f2153019a74025d83a73effdd91503ceecefac7e35dd933adc1901c875539aa",
+  "s": "0x334ab2f714796d13c825fddf12aad01438db3a8152b2fe3ef7827707c25ecab3",
+  "yParity": "0x0",
+  "v": "0x0",
+  "hash": "0x0e07d8b53ed3d91314c80e53cf25bcde02084939395845cbb625b029d568135c",
+  "blockHash": "0x883f974b17ca7b28cb970798d1c80f4d4bb427473dc6d39b2a7fe24edc02902d",
+  "blockNumber": "0xe26e6d",
+  "transactionIndex": "0xad",
+  "from": "0x3cf412d970474804623bb4e3a42de13f9bca5436",
+  "gasPrice": "0x50101df3a"
+}
+```
+
+--------------------------------
+
+TITLE: Start NextJS App
+DESCRIPTION: Starts the NextJS application, allowing interaction with the deployed smart contract via a web interface. The app is accessible at http://localhost:3000.
+
+SOURCE: https://docs.monad.xyz/guides/scaffold-eth
+
+LANGUAGE: shell
+CODE:
+```
+yarn start
+```
+
+--------------------------------
+
+TITLE: Build and Run Commands for Eventwatch
+DESCRIPTION: These commands demonstrate how to configure, build, and run the 'eventwatch' application using CMake and Ninja. The first command configures the build, the second builds the project, and the third executes the compiled application.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ cmake -S . -B build -G Ninja
+$ cmake --build build
+$ build/eventwatch
+
+```
+
+--------------------------------
+
+TITLE: Example Command Line: Event Ring with Shifts
+DESCRIPTION: An example of the command-line parameter specifying the event ring name along with descriptor and payload buffer shifts.
+
+SOURCE: https://docs.monad.xyz/execution-events/event-ring
+
+LANGUAGE: bash
+CODE:
+```
+--exec-event-ring monad-exec-events:21:29
+```
+
+--------------------------------
+
+TITLE: ChainSight Oracles
+DESCRIPTION: ChainSight enhances oracles with no-code tools, aiming to reduce costs, mitigate single-operator risks, and foster scalable, open innovation. Developers can find detailed documentation for getting started.
+
+SOURCE: https://docs.monad.xyz/tooling-and-infra/oracles
+
+LANGUAGE: APIDOC
+CODE:
+```
+## ChainSight Oracles
+
+### Description
+ChainSight offers no-code tools to improve oracle functionalities, focusing on cost reduction, minimizing risks associated with single operators, and promoting scalable, open innovation. It aims to simplify the integration and management of oracle services.
+
+### Benefits
+- No-code tools for oracle implementation
+- Reduced costs
+- Mitigation of single-operator risks
+- Support for scalable, open innovation
+
+### Getting Started
+Consult the ChainSight documentation for initial setup and usage instructions.
+```
+
+--------------------------------
+
+TITLE: Install Vercel CLI
+DESCRIPTION: Installs the Vercel Command Line Interface globally on your system, enabling deployment and management of Vercel projects from your terminal.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+npm i -g vercel
+```
+
+--------------------------------
+
+TITLE: Fetch Monad Event SDK via FetchContent (CMake)
+DESCRIPTION: This CMake snippet demonstrates how to declare and make available the execution events C SDK directly from a Git repository using FetchContent. It specifies the repository, tag, shallow clone, exclusion of submodules, and a subdirectory for the top-level CMakeLists.txt to build only the 'monad_event' library. It also disables the SDK's example to prevent naming conflicts.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: cmake
+CODE:
+```
+include(FetchContent)
+
+
+FetchContent_Declare(exec_events_c_sdk
+    GIT_REPOSITORY git@github.com:category-labs/monad.git
+    GIT_TAG release/exec-events-sdk-v1.x
+    GIT_SHALLOW TRUE
+    GIT_SUBMODULES ""
+    SOURCE_SUBDIR category/event)
+
+
+set(MONAD_EVENT_BUILD_EXAMPLE OFF CACHE INTERNAL "")
+
+
+FetchContent_MakeAvailable(exec_events_c_sdk)
+
+
+add_executable(eventwatch eventwatch.c)
+target_compile_options(eventwatch PRIVATE -Wall -Wextra -Wconversion -Werror)
+target_link_libraries(eventwatch PRIVATE monad_event)
+```
+
+--------------------------------
+
+TITLE: Execute eventcap
+DESCRIPTION: Command to execute the built `eventcap` program to see its help message. This utility decodes execution event payloads and performs other tasks related to the event system.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: shell
+CODE:
+```
+$ ~/build/monad-eventcap-release/eventcap --help
+```
+
+--------------------------------
+
+TITLE: Start App - iOS (npm)
+DESCRIPTION: Starts the React Native application in the Expo Go app on an iOS simulator or device. This command uses npm to run the start script for iOS.
+
+SOURCE: https://docs.monad.xyz/templates/react-native-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+npm run ios
+```
+
+--------------------------------
+
+TITLE: Build and Run eventcap using clang-19 and libc++
+DESCRIPTION: Steps to clone the Monad repository, configure the CMake build for `eventcap` using clang-19 with specific CFLAGS and CXXFLAGS (including libc++ and `-fexperimental-library`), and build the project.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: shell
+CODE:
+```
+$ git clone -b release/exec-events-sdk-v1.x https://github.com/category-labs/monad.git \
+  ~/src/monad-eventcap
+$ CC=clang-19 CFLAGS="-march=x86-64-v4" \
+  CXX=clang++-19 CXXFLAGS="-stdlib=libc++ -fexperimental-library -march=x86-64-v4" cmake \
+  -S ~/src/monad-eventcap/cmd/eventcap -B ~/build/monad-eventcap-release -G Ninja \
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo
+$ cmake --build ~/build/monad-eventcap-release
+```
+
+--------------------------------
+
+TITLE: Set up .env file
+DESCRIPTION: Copies the example environment file to .env. This file is used to store sensitive information like private keys.
+
+SOURCE: https://docs.monad.xyz/guides/deploy-smart-contract/hardhat
+
+LANGUAGE: bash
+CODE:
+```
+cp .env.example .env
+```
+
+--------------------------------
+
+TITLE: CMakeLists.txt Configuration for Eventwatch
+DESCRIPTION: This CMakeLists.txt file configures the build for the 'eventwatch' executable. It specifies the minimum CMake version, project name, finds the required monad_exec_events_sdk package, defines the executable, sets compile options, and links the monad_event library.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: cmake
+CODE:
+```
+cmake_minimum_required(VERSION 3.21)
+
+
+project(eventwatch LANGUAGES C)
+
+
+find_package(monad_exec_events_sdk REQUIRED
+             PATHS /tmp/sdk-install-demo/lib/cmake/category-labs)
+
+
+add_executable(eventwatch eventwatch.c)
+target_compile_options(eventwatch PRIVATE -Wall -Wextra -Wconversion -Werror)
+target_link_libraries(eventwatch PRIVATE monad_event)
+
+```
+
+--------------------------------
+
+TITLE: Start Local Hardhat Node
+DESCRIPTION: Starts a local Hardhat development network, which is useful for testing smart contracts without deploying to a public network.
+
+SOURCE: https://docs.monad.xyz/guides/deploy-smart-contract/hardhat
+
+LANGUAGE: bash
+CODE:
+```
+npx hardhat node
+```
+
+--------------------------------
+
+TITLE: Get Validator Sets (Paginated)
+DESCRIPTION: Fetches lists of validator IDs for consensus, snapshot, and execution contexts in a paginated manner. Each call returns a subset of validator IDs along with pagination controls (isDone, nextIndex), allowing efficient retrieval of large validator sets. The `startIndex` parameter controls the starting point of the retrieval.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/staking/staking-precompile
+
+LANGUAGE: Solidity
+CODE:
+```
+function getConsensusValidatorSet(
+    uint32 startIndex
+) external returns (bool isDone, uint32 nextIndex, uint64[] memory valIds);
+```
+
+LANGUAGE: Solidity
+CODE:
+```
+function getSnapshotValidatorSet(
+    uint32 startIndex
+) external returns (bool isDone, uint32 nextIndex, uint64[] memory valIds);
+```
+
+LANGUAGE: Solidity
+CODE:
+```
+function getExecutionValidatorSet(
+    uint32 startIndex
+) external returns (bool isDone, uint32 nextIndex, uint64[] memory valIds);
+```
+
+--------------------------------
+
+TITLE: Start App - Android (npm)
+DESCRIPTION: Starts the React Native application in the Expo Go app on an Android emulator or device. This command uses npm to run the start script for Android.
+
+SOURCE: https://docs.monad.xyz/templates/react-native-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+npm run android
+```
+
+--------------------------------
+
+TITLE: Get Transaction by Block Hash and Index (JSON Example)
+DESCRIPTION: Provides an example JSON object representing transaction details fetched using `eth_getTransactionByBlockHashAndIndex`. This includes transaction type, chain ID, nonce, gas, fees, sender, receiver, value, access list, input data, signature components (r, s, v, yParity), hash, block hash, block number, transaction index, and the sender's address.
+
+SOURCE: https://docs.monad.xyz/reference/json-rpc/eth_getTransactionByBlockHashAndIndex
+
+LANGUAGE: json
+CODE:
+```
+{
+  "type": "0x2",
+  "chainId": "0x1",
+  "nonce": "0x16d",
+  "gas": "0x46a02",
+  "maxFeePerGas": "0x7fc1a20a8",
+  "maxPriorityFeePerGas": "0x59682f00",
+  "to": "0x68b3465833fb72a70ecdf485e0e4c7bd8665fc45",
+  "value": "0x4a6ed55bbcc180",
+  "accessList": [],
+  "input": "0x5ae401dc00000000000000000000000000000000000000000000000000000000628ced5b0000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000016000000000000000000000000000000000000000000000000000000000000000e442712a6700000000000000000000000000000000000000000000b3ff1489674e11c40000000000000000000000000000000000000000000000000000004a6ed55bbcc18000000000000000000000000000000000000000000000000000000000000000800000000000000000000000003cf412d970474804623bb4e3a42de13f9bca54360000000000000000000000000000000000000000000000000000000000000002000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc20000000000000000000000003a75941763f31c930b19c041b709742b0b31ebb600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000412210e8a00000000000000000000000000000000000000000000000000000000",
+  "r": "0x7f2153019a74025d83a73effdd91503ceecefac7e35dd933adc1901c875539aa",
+  "s": "0x334ab2f714796d13c825fddf12aad01438db3a8152b2fe3ef7827707c25ecab3",
+  "yParity": "0x0",
+  "v": "0x0",
+  "hash": "0x0e07d8b53ed3d91314c80e53cf25bcde02084939395845cbb625b029d568135c",
+  "blockHash": "0x883f974b17ca7b28cb970798d1c80f4d4bb427473dc6d39b2a7fe24edc02902d",
+  "blockNumber": "0xe26e6d",
+  "transactionIndex": "0xad",
+  "from": "0x3cf412d970474804623bb4e3a42de13f9bca5436",
+  "gasPrice": "0x50101df3a"
+}
+```
+
+--------------------------------
+
+TITLE: Add CMake Subproject - Add Subdirectory
+DESCRIPTION: Integrates the SDK as a CMake subproject by adding its source directory. This makes the SDK's library target available to the parent project.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: cmake
+CODE:
+```
+add_subdirectory(<path-to-monad-repo>/category/event)
+```
+
+--------------------------------
+
+TITLE: Start Envio Indexer Development Mode
+DESCRIPTION: Starts the Envio indexer in development mode using the `pnpx envio dev` command. This command initiates the process of syncing blockchain data and makes the indexer accessible for querying.
+
+SOURCE: https://docs.monad.xyz/guides/indexers/tg-bot-using-envio
+
+LANGUAGE: bash
+CODE:
+```
+pnpx envio dev
+```
+
+--------------------------------
+
+TITLE: Deep Link Examples for Monad Wallet
+DESCRIPTION: Various deep links demonstrating different swap scenarios for the Monad wallet. These examples cover swapping between different tokens and specifying amounts.
+
+SOURCE: https://docs.monad.xyz/guides/deeplinks-using-expo
+
+LANGUAGE: plaintext
+CODE:
+```
+rnwalletapp://swap?from=MON&to=USDC
+```
+
+LANGUAGE: plaintext
+CODE:
+```
+rnwalletapp://swap?from=MON&to=USDC&amount=100
+```
+
+LANGUAGE: plaintext
+CODE:
+```
+rnwalletapp://swap?from=USDC&to=WMON&amount=1000
+```
+
+--------------------------------
+
+TITLE: Configure Rust project dependencies in Cargo.toml
+DESCRIPTION: Defines the project's metadata and dependencies, including the Monad execution event SDK packages sourced directly from a Git repository.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/rust
+
+LANGUAGE: toml
+CODE:
+```
+[package]
+name = "event-sdk-example-rust"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+chrono = "0.4.34"
+clap = { version = "4.2", features = ["derive"] }
+lazy_static = "1.5.0"
+
+
+[dependencies.monad-exec-events]
+git = "https://github.com/category-labs/monad-bft"
+branch = "release/exec-events-sdk-v1.x"
+
+
+[dependencies.monad-event-ring]
+git = "https://github.com/category-labs/monad-bft"
+branch = "release/exec-events-sdk-v1.x"
+
+```
+
+--------------------------------
+
+TITLE: Clone Foundry Scaffold
+DESCRIPTION: Clones the Scaffold-ETH Foundry repository. This is the initial step to start a dApp project using the Foundry framework.
+
+SOURCE: https://docs.monad.xyz/guides/scaffold-eth
+
+LANGUAGE: shell
+CODE:
+```
+git clone https://github.com/monad-developers/scaffold-monad-foundry.git
+```
+
+--------------------------------
+
+TITLE: Set Up Environment Variables for Deployment
+DESCRIPTION: Copies the example environment file and instructs to add private key and RPC URL for Monad Testnet. These variables are crucial for deploying the contract.
+
+SOURCE: https://docs.monad.xyz/guides/indexers/ghost
+
+LANGUAGE: bash
+CODE:
+```
+cp .env.example .env
+```
+
+LANGUAGE: bash
+CODE:
+```
+PRIVATE_KEY=your_private_key_here
+MONAD_TESTNET_RPC=https://testnet-rpc.monad.xyz
+```
+
+--------------------------------
+
+TITLE: Build eventwatch with CMake and make
+DESCRIPTION: This code block shows the command-line execution of CMake to configure the build for the 'eventwatch' program using the default compiler and the 'make' build system. It assumes the source code is located at '~/src/event-sdk-example-c' and the build output will be in '~/src/event-sdk-example-c/build'. After configuration, it navigates into the build directory and invokes 'make' to compile the project.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ cmake -S ~/src/event-sdk-example-c -B ~/src/event-sdk-example-c/build
+$ cd ~/src/event-sdk-example-c/build
+$ make
+```
+
+--------------------------------
+
+TITLE: Clone Repository using Git
+DESCRIPTION: Clones the Next.js Serwist Thirdweb repository from GitHub to your local machine.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-thirdweb
+
+LANGUAGE: bash
+CODE:
+```
+git clone https://github.com/monad-developers/next-serwist-thirdweb.git
+```
+
+--------------------------------
+
+TITLE: Install @vercel/og Package
+DESCRIPTION: This command installs the `@vercel/og` package, which is essential for generating images in your application.
+
+SOURCE: https://docs.monad.xyz/templates/farcaster-miniapp/generating-custom-og-images
+
+LANGUAGE: bash
+CODE:
+```
+npm install @vercel/og
+```
+
+--------------------------------
+
+TITLE: CMake Toolchain File for clang-19 and libc++
+DESCRIPTION: Contents of a CMake toolchain file (`clang19-libcxx.cmake`) to simplify the build process for `eventcap` when using clang-19, libc++, and specific C++ standard library flags.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/final
+
+LANGUAGE: cmake
+CODE:
+```
+set(CMAKE_C_COMPILER clang-19)
+set(CMAKE_CXX_COMPILER clang++-19)
+set(CMAKE_ASM_FLAGS_INIT -march=x86-64-v4)
+set(CMAKE_C_FLAGS_INIT -march=x86-64-v4)
+set(CMAKE_CXX_FLAGS_INIT "-march=x86-64-v4 -stdlib=libc++ -fexperimental-library")
+```
+
+--------------------------------
+
+TITLE: Build Rust project and specify C compiler
+DESCRIPTION: Command to build the Rust project using Cargo. Shows how to set the CC environment variable to use a specific C compiler if needed.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/rust
+
+LANGUAGE: bash
+CODE:
+```
+cargo build
+
+CC=gcc-15 cargo build
+```
+
+--------------------------------
+
+TITLE: Install Axios Package
+DESCRIPTION: This command installs the 'axios' package, a popular promise-based HTTP client for the browser and Node.js, using the pnpm package manager. Axios is required for making HTTP requests to interact with APIs, such as the Telegram Bot API.
+
+SOURCE: https://docs.monad.xyz/guides/indexers/tg-bot-using-envio
+
+LANGUAGE: bash
+CODE:
+```
+pnpm i axios
+
+```
+
+--------------------------------
+
+TITLE: Run eventwatch executable
+DESCRIPTION: This command executes the compiled 'eventwatch' program with the '-h' flag to display its usage information, including available options and positional arguments. This is typically done after a successful build to verify the executable and understand its functionality.
+
+SOURCE: https://docs.monad.xyz/execution-events/getting-started/c
+
+LANGUAGE: bash
+CODE:
+```
+$ ./eventwatch -h
+```
+
+--------------------------------
+
+TITLE: eth_feeHistory RPC Method Response Example
+DESCRIPTION: An example of the expected JSON response structure when calling the eth_feeHistory RPC method. It shows the format for gasUsedRatio and oldestBlock.
+
+SOURCE: https://docs.monad.xyz/reference/json-rpc/eth_feeHistory
+
+LANGUAGE: json
+CODE:
+```
+{
+  "gasUsedRatio": [],
+  "oldestBlock": "0x0"
+}
+```
+
+--------------------------------
+
+TITLE: Deploy Project with Vercel CLI
+DESCRIPTION: Initiates the deployment process for your project using the Vercel CLI. This command will guide you through project configuration and deployment.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+vercel
+```
+
+--------------------------------
+
+TITLE: Start Execution Daemon with Event Ring Parameter
+DESCRIPTION: This command starts the execution daemon with support for execution events. The optional string configures the event ring, defaulting to 'monad-exec-events' if omitted.
+
+SOURCE: https://docs.monad.xyz/execution-events/event-ring
+
+LANGUAGE: bash
+CODE:
+```
+--exec-event-ring [<event-ring-configuration-string>]
+```
+
+--------------------------------
+
+TITLE: Example: Adding shMON Token Configuration
+DESCRIPTION: This example provides the concrete implementation for adding the 'shMON' token to the Monad testnet token configurations. It shows the correct structure for the `MONAD_TESTNET_TOKENS` array, the `MONAD_TESTNET_TOKENS_BY_SYMBOL` record (using 'shmon' as the key), and the `MONAD_TESTNET_TOKENS_BY_ADDRESS` record (using the lowercase contract address as the key).
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-0x-privy-embedded-wallet
+
+LANGUAGE: typescript
+CODE:
+```
+// In MONAD_TESTNET_TOKENS array
+{
+  chainId: 1,
+  name: "shMonad",
+  symbol: "shMON",
+  decimals: 18,
+  address: "0x3a98250F98Dd388C211206983453837C8365BDc1",
+  logoURI: "put_your_logo_url_here_or_use_the_default_logo",
+},
+
+
+// In MONAD_TESTNET_TOKENS_BY_SYMBOL record
+shmon: {
+  chainId: 1,
+  name: "shMonad",
+  symbol: "shMON",
+  decimals: 18,
+  address: "0x3a98250F98Dd388C211206983453837C8365BDc1",
+  logoURI: "put_your_logo_url_here_or_use_the_default_logo",
+},
+
+
+// In MONAD_TESTNET_TOKENS_BY_ADDRESS record
+"0x3a98250F98Dd388C211206983453837C8365BDc1": {
+  chainId: 1,
+  name: "shMonad",
+  symbol: "shMON",
+  decimals: 18,
+  address: "0x3a98250F98Dd388C211206983453837C8365BDc1",
+  logoURI: "put_your_logo_url_here_or_use_the_default_logo",
+},
+```
+
+--------------------------------
+
+TITLE: Install Expo CLI Globally (npm)
+DESCRIPTION: Installs the Expo CLI globally on your system, which is a prerequisite for managing and running Expo projects. Requires Node.js and npm.
+
+SOURCE: https://docs.monad.xyz/templates/react-native-privy-embedded-wallet
+
+LANGUAGE: bash
+CODE:
+```
+npm i -g expo-cli
+```
+
+--------------------------------
+
+TITLE: Environment Variables for Vercel
+DESCRIPTION: Lists the environment variables required for Vercel deployment. These should be added to the Vercel project settings.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-thirdweb
+
+LANGUAGE: text
+CODE:
+```
+NEXT_PUBLIC_THIRDWEB_CLIENT_ID
+WEB_PUSH_EMAIL
+WEB_PUSH_PRIVATE_KEY
+NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY
+```
+
+--------------------------------
+
+TITLE: Initialize Envio Project
+DESCRIPTION: Initializes a new Envio project using the `pnpx envio init` command. This command guides the user through configuration steps such as selecting the language, blockchain ecosystem, ABI import method, contract details, and network ID.
+
+SOURCE: https://docs.monad.xyz/guides/indexers/tg-bot-using-envio
+
+LANGUAGE: bash
+CODE:
+```
+pnpx envio init
+```
+
+--------------------------------
+
+TITLE: Send Batch Sponsored Transactions (JavaScript)
+DESCRIPTION: Example demonstrating how to send multiple sponsored transactions in a single batch using the `useSmartWallet` hook.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-privy-smart-wallet
+
+LANGUAGE: javascript
+CODE:
+```
+const txHash = await smartAccountClient?.sendTransaction({
+  calls: [
+    {
+      to: NFT_CONTRACT_ADDRESS,
+      data,
+    },
+    {
+      to: NFT_CONTRACT_ADDRESS,
+      data,
+    },
+  ],
+});
+```
+
+--------------------------------
+
+TITLE: Example State After Block Execution
+DESCRIPTION: Demonstrates the state of an account's balance after a block has been executed, showing the balance available for future transactions.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/reserve-balance
+
+LANGUAGE: Solidity
+CODE:
+```
+block=1, balances={Alice: 110}
+```
+
+--------------------------------
+
+TITLE: GET Endpoint: Blink Metadata and UI Configuration (TypeScript)
+DESCRIPTION: Defines the GET endpoint for a Blink action, returning metadata and UI configuration. It specifies how the action appears in clients, required parameters, and execution details. Dependencies include '@solana/actions'.
+
+SOURCE: https://docs.monad.xyz/guides/blinks-guide
+
+LANGUAGE: typescript
+CODE:
+```
+import {
+  ActionGetResponse,
+} from "@solana/actions";
+
+
+// GET endpoint returns the Blink metadata (JSON) and UI configuration
+export const GET = async (req: Request) => {
+  // This JSON is used to render the Blink UI
+  const response: ActionGetResponse = {
+    type: "action",
+    icon: `${new URL("/donate-mon.png", req.url).toString()}`,
+    label: "1 MON",
+    title: "Donate MON",
+    description:
+      "This Blink demonstrates how to donate MON on the Monad blockchain. It is a part of the official Blink Starter Guides by Dialect Labs.  \n\nLearn how to build this Blink: https://dialect.to/docs/guides/donate-mon",
+    // Links is used if you have multiple actions or if you need more than one params
+    links: {
+      actions: [
+        {
+          // Defines this as a blockchain transaction
+          type: "transaction",
+          label: "0.01 MON",
+          // This is the endpoint for the POST request
+          href: `/api/actions/donate-mon?amount=0.01`,
+        },
+        {
+          type: "transaction",
+          label: "0.05 MON",
+          href: `/api/actions/donate-mon?amount=0.05`,
+        },
+        {
+          type: "transaction",
+          label: "0.1 MON",
+          href: `/api/actions/donate-mon?amount=0.1`,
+        },
+        {
+          // Example for a custom input field
+          type: "transaction",
+          href: `/api/actions/donate-mon?amount={amount}`,
+          label: "Donate",
+          parameters: [
+            {
+              name: "amount",
+              label: "Enter a custom MON amount",
+              type: "number",
+            },
+          ],
+        },
+      ],
+    },
+  };
+
+
+  // Return the response with proper headers
+  return new Response(JSON.stringify(response), {
+    status: 200,
+    headers,
+  });
+};
+
+```
+
+--------------------------------
+
+TITLE: Example Transaction Fields
+DESCRIPTION: Illustrates the essential fields of a transaction as seen by the Monad consensus mechanism, including sender, recipient, value, and gas limit.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/reserve-balance
+
+LANGUAGE: Solidity
+CODE:
+```
+sender=Alice, to=Bob, value=100, gas=1
+```
+
+--------------------------------
+
+TITLE: Goldsky Mirror Pipeline Configuration (YAML)
+DESCRIPTION: Example `pipeline.yaml` file for configuring Goldsky Mirror to stream Monad testnet ERC20 transfers. It specifies data sources, filtering, transformations using SQL, and a PostgreSQL sink.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/best-practices
+
+LANGUAGE: yaml
+CODE:
+```
+name: monad-testnet-erc20-transfers
+apiVersion: 3
+sources:
+  monad_testnet_erc20_transfers:
+    dataset_name: monad_testnet.erc20_transfers
+    filter: address = '0x0' # Add erc20 contract address. Multiple addresses can be added with 'OR' operator: address = '0x0' OR address = '0x1'
+    version: 1.2.0
+    type: dataset
+    start_at: earliest
+
+
+# Data transformation logic (optional)
+transforms:
+  select_relevant_fields:
+    sql: |
+      SELECT
+          id,
+          address,
+          event_signature,
+          event_params,
+          raw_log.block_number as block_number,
+          raw_log.block_hash as block_hash,
+          raw_log.transaction_hash as transaction_hash
+      FROM
+          ethereum_decoded_logs
+    primary_key: id
+
+
+# Sink configuration to specify where data goes eg. DB
+sinks:
+  postgres:
+    type: postgres
+    table: erc20_transfers
+    schema: goldsky
+    secret_name: A_POSTGRESQL_SECRET
+    from: select_relevant_fields
+
+```
+
+--------------------------------
+
+TITLE: Backend Integration for Notifications
+DESCRIPTION: Outlines backend tasks required for the SendNotification.tsx component, including managing subscription data and implementing a notification endpoint.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-thirdweb
+
+LANGUAGE: text
+CODE:
+```
+* **Save subscription data** when users subscribe (see TODO comments in code)
+* **Delete subscription data** when users unsubscribe
+* **Implement`/notification` endpoint** to send actual push notifications
+* **Use`web-push` library** or similar for server-side notification delivery
+```
+
+--------------------------------
+
+TITLE: Get Delegators
+DESCRIPTION: Retrieves a paginated list of delegators for a given validator.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/staking/staking-precompile
+
+LANGUAGE: APIDOC
+CODE:
+```
+## GET /websites/monad_xyz/getDelegators
+
+### Description
+Retrieves a paginated list of delegators for a given validator, starting from a specified delegator address.
+
+### Method
+GET
+
+### Endpoint
+/websites/monad_xyz/getDelegators
+
+### Parameters
+#### Path Parameters
+- **validatorId** (uint64) - Required - The ID of the validator for which we want to know the delegators.
+- **startDelegator** (address) - Required - The address of the delegator to start the pagination from.
+
+### Response
+#### Success Response (200)
+- **isDone** (bool) - Indicates whether the end of the list has been reached.
+- **nextDelegator** (address) - The next delegator address to use for pagination.
+- **delegators** (address[]) - An array of delegator addresses.
+
+#### Response Example
+```json
+{
+  "isDone": false,
+  "nextDelegator": "0xdef456",
+  "delegators": [
+    "0xabc123",
+    "0xdef456",
+    "0xghi789"
+  ]
+}
+```
+```
+
+--------------------------------
+
+TITLE: Customize Splash Screen Colors
+DESCRIPTION: Updates the `theme_color` and `background_color` in `public/manifest.json` to customize the app's splash screen appearance.
+
+SOURCE: https://docs.monad.xyz/templates/next-serwist-thirdweb
+
+LANGUAGE: json
+CODE:
+```
+{
+  "name": "My PWA",
+  "icons": [
+    // ... icon configurations
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#000000"
+}
+```
+
+--------------------------------
+
+TITLE: Staking ABI - getExecutionValidatorSet
+DESCRIPTION: Retrieves a paginated list of validator IDs in the execution set. Requires a starting index.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/staking/staking-precompile
+
+LANGUAGE: APIDOC
+CODE:
+```
+## GET /websites/monad_xyz/getExecutionValidatorSet
+
+### Description
+Retrieves a paginated list of validator IDs in the execution set. Requires a starting index.
+
+### Method
+GET
+
+### Endpoint
+/websites/monad_xyz/getExecutionValidatorSet
+
+### Parameters
+#### Path Parameters
+None
+
+#### Query Parameters
+- **startIndex** (uint32) - Required - The index to start retrieving validator IDs from.
+
+#### Request Body
+None
+
+### Request Example
+```
+GET /websites/monad_xyz/getExecutionValidatorSet?startIndex=0
+```
+
+### Response
+#### Success Response (200)
+- **isDone** (bool) - Indicates if this is the last page of results.
+- **nextIndex** (uint32) - The index for the next page of results.
+- **valIds** (uint64[]) - An array of validator IDs.
+
+#### Response Example
+```json
+{
+  "isDone": false,
+  "nextIndex": 100,
+  "valIds": [201, 202, 203, 204, 205]
+}
+```
+```
+
+--------------------------------
+
+TITLE: Get Delegators
+DESCRIPTION: Retrieves a paginated list of delegator addresses for a specific validator.
+
+SOURCE: https://docs.monad.xyz/developer-essentials/staking/staking-precompile
+
+LANGUAGE: APIDOC
+CODE:
+```
+## GET /staking/getDelegators
+
+### Description
+Retrieves a paginated list of delegator addresses for a specific validator.
+
+### Method
+`external`
+
+### Endpoint
+`getDelegators`
+
+### Parameters
+#### Path Parameters
+None
+
+#### Query Parameters
+- **validatorId** (uint64) - Required - The ID of the validator.
+- **startDelegator** (address) - Required - The starting delegator address for pagination.
+
+### Request Example
+```json
+{
+  "validatorId": 123,
+  "startDelegator": "0x000..."
+}
+```
+
+### Response
+#### Success Response (200)
+- **isDone** (bool) - Indicates if this is the last page of results.
+- **nextDelegator** (address) - The next delegator address to start pagination from.
+- **delegators** (address[]) - An array of delegator addresses.
+```
+
+--------------------------------
+
+TITLE: Monad EVM Transaction Header Start Event Structure (C)
+DESCRIPTION: Defines the C structure for the 'start of transaction header' event payload. This event is recorded after a new transaction is decoded by the EVM and contains key transaction information. The structure includes the transaction hash, sender address, and the nested transaction header.
+
+SOURCE: https://docs.monad.xyz/execution-events/overview
+
+LANGUAGE: c
+CODE:
+```
+/// First event recorded when transaction processing starts
+struct monad_exec_txn_header_start {
+    monad_c_bytes32 txn_hash;     ///< Keccak hash of transaction RLP
+    monad_c_address sender;       ///< Recovered sender address
+    struct monad_c_eth_txn_header
+        txn_header;               ///< Transaction header
+};
+
+```

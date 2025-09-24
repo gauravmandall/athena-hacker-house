@@ -1,0 +1,349 @@
+[
+  {
+    "name": "gravel-track-collider",
+    "src": "/assets/tracks/gravel/gravel-track-data.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "gravel-track-layer-1",
+    "src": "/assets/tracks/gravel/gravel-track-layer1.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "gravel-track-layer-2",
+    "src": "/assets/tracks/gravel/gravel-track-layer2.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "grass-track-collider-gates-off",
+    "src": "/assets/tracks/grass/grass-track-data-gates-off.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "grass-track-collider-gates-on",
+    "src": "/assets/tracks/grass/grass-track-data-gates-on.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "grass-track-layer-1",
+    "src": "/assets/tracks/grass/grass-track-layer1.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "grass-track-layer-2",
+    "src": "/assets/tracks/grass/grass-track-layer2.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "snow-track-collider",
+    "src": "/assets/tracks/snow/snow-track-data.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "snow-track-layer-1",
+    "src": "/assets/tracks/snow/snow-track-layer1.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "snow-track-layer-2",
+    "src": "/assets/tracks/snow/snow-track-layer2.png",
+    "config": {
+      "spriteWidth": 320,
+      "spriteHeight": 182
+    }
+  },
+  {
+    "name": "peugeot_black",
+    "src": "/assets/sprites/peugeot_black.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "opel_black",
+    "src": "/assets/sprites/opel_black.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "opel_pink",
+    "src": "/assets/sprites/opel_pink.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "opel_blue",
+    "src": "/assets/sprites/opel_blue.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "opel_green",
+    "src": "/assets/sprites/opel_green.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "opel_yellow",
+    "src": "/assets/sprites/opel_yellow.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "peugeot_blue",
+    "src": "/assets/sprites/peugeot_blue.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "peugeot_green",
+    "src": "/assets/sprites/peugeot_green.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "peugeot_pink",
+    "src": "/assets/sprites/peugeot_pink.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "peugeot_white",
+    "src": "/assets/sprites/peugeot_white.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "peugeot_yellow",
+    "src": "/assets/sprites/peugeot_yellow.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "ghost",
+    "src": "/assets/sprites/ghost.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "marucha",
+    "src": "/assets/sprites/marucha.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "pothole",
+    "src": "/assets/effect_objects/pothole.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "puddle",
+    "src": "/assets/effect_objects/puddle.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "banana_peel",
+    "src": "/assets/effect_objects/banana_peel.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "boost_star",
+    "src": "/assets/effect_objects/boost_star.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "ice_cube",
+    "src": "/assets/effect_objects/ice_cube.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "spikes",
+    "src": "/assets/effect_objects/spikes.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "invisible",
+    "src": "/assets/effect_objects/invisible.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "no_collision",
+    "src": "/assets/effect_objects/no_collision.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "oil_spill",
+    "src": "/assets/effect_objects/oil_spill.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+  {
+    "name": "nitro-sprite",
+    "src": "/assets/ui/indicators/nitro-sprite.png",
+    "config": {
+      "spriteWidth": 18,
+      "spriteHeight": 18
+    }
+  },
+  {
+    "name": "gate_horizontal",
+    "src": "/assets/sprites/gate_horizontal.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+  {
+    "name": "gate_vertical",
+    "src": "/assets/sprites/gate_vertical.png",
+    "config": {
+      "spriteWidth": 80,
+      "spriteHeight": 80
+    }
+  },
+
+  {
+    "name": "wrench",
+    "src": "/assets/effect_objects/wrench.png",
+    "config": {
+      "spriteWidth": 24,
+      "spriteHeight": 24
+    }
+  },
+
+  {
+    "name": "repair-effect",
+    "src": "/assets/ui/indicators/repair-effect.png",
+    "config": {
+      "spriteWidth": 16,
+      "spriteHeight": 16
+    }
+  },
+  {
+    "name": "freeze-effect",
+    "src": "/assets/ui/indicators/effect-freeze.png",
+    "config": {
+      "spriteWidth": 16,
+      "spriteHeight": 16
+    }
+  },
+  {
+    "name": "check-engine",
+    "src": "/assets/ui/indicators/check-engine.png",
+    "config": {
+      "spriteWidth": 16,
+      "spriteHeight": 16
+    }
+  },
+  {
+    "name": "slip-effect",
+    "src": "/assets/ui/indicators/slip-effect.png",
+    "config": {
+      "spriteWidth": 16,
+      "spriteHeight": 16
+    }
+  },
+  {
+    "name": "ice",
+    "src": "/assets/effect_objects/ice.png",
+    "config": {
+      "spriteWidth": 400,
+      "spriteHeight": 400
+    }
+  },
+
+  {
+    "name": "gravel",
+    "src": "/assets/effect_objects/gravel.png",
+    "config": {
+      "spriteWidth": 300,
+      "spriteHeight": 300
+    }
+  },
+  {
+    "name": "rain",
+    "src": "/assets/tracks/snow/rain.png",
+    "config": {
+      "spriteWidth": 640,
+      "spriteHeight": 364
+    }
+  }
+]
