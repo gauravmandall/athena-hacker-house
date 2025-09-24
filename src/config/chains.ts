@@ -1,8 +1,7 @@
 import { defineChain } from 'viem';
 
-// Monad Testnet configuration
 export const monadTestnet = defineChain({
-  id: 41454, // Monad Testnet Chain ID
+  id: 10143,
   name: 'Monad Testnet',
   network: 'monad-testnet',
   nativeCurrency: {
@@ -12,24 +11,23 @@ export const monadTestnet = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet.monad.xyz'],
+      http: ['https://testnet-rpc.monad.xyz'],
     },
     public: {
-      http: ['https://testnet.monad.xyz'],
+      http: ['https://testnet-rpc.monad.xyz'],
     },
   },
   blockExplorers: {
-    default: { 
-      name: 'Monad Explorer', 
-      url: 'https://explorer.testnet.monad.xyz' 
+    default: {
+      name: 'Monad Explorer',
+      url: 'https://explorer.testnet.monad.xyz',
     },
   },
   testnet: true,
 });
 
-// Monad Mainnet configuration (when available)
 export const monadMainnet = defineChain({
-  id: 42, // Placeholder - Replace with actual Monad mainnet chain ID when available
+  id: 42,
   name: 'Monad',
   network: 'monad',
   nativeCurrency: {
@@ -39,17 +37,17 @@ export const monadMainnet = defineChain({
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.monad.xyz'], // Replace with actual RPC when available
+      http: ['https://testnet-rpc.monad.xyz/'],
     },
     public: {
-      http: ['https://rpc.monad.xyz'], // Replace with actual RPC when available
+      http: ['https://testnet-rpc.monad.xyz/'],
     },
   },
   blockExplorers: {
-    default: { 
-      name: 'Monad Explorer', 
-      url: 'https://explorer.monad.xyz' // Replace with actual explorer when available
+    default: {
+      name: 'Monad Explorer',
+      url: 'https://testnet.monadexplorer.com/',
     },
   },
-  testnet: false,
+  testnet: true,
 });

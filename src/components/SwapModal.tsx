@@ -29,7 +29,6 @@ export const SwapModal: React.FC<SwapModalProps> = ({
   const [slippage, setSlippage] = useState(0.5);
   const [quote, setQuote] = useState<SwapQuote | null>(null);
   const [balance, setBalance] = useState<string>('0');
-
   const swapService = SwapService.getInstance();
   const availableTokens = getTokensByChainId(chainId);
 

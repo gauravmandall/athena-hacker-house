@@ -7,21 +7,22 @@ interface AuthButtonProps {
   className?: string;
 }
 
-export const AuthButton: React.FC<AuthButtonProps> = ({ 
+export const AuthButton: React.FC<AuthButtonProps> = ({
   onAuthenticated,
-  className = 'auth-button'
+  className = 'auth-button',
 }) => {
-  const { ready, authenticated, user, login, logout, connectWallet } = usePrivy();
+  const { ready, authenticated, user, login, logout, connectWallet } =
+    usePrivy();
   const { wallets } = useWallets();
   const authService = AuthService.getInstance();
 
   useEffect(() => {
     if (authenticated && user) {
       authService.setUser(user);
-      
+
       // Get the wallet address
       const walletAddress = wallets?.[0]?.address || user?.wallet?.address;
-      
+
       if (walletAddress && onAuthenticated) {
         onAuthenticated(walletAddress);
       }
@@ -34,7 +35,7 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
     try {
       authService.setLoading(true);
       await login();
-      
+
       // If user logs in with email, prompt to connect wallet
       if (authenticated && !wallets.length) {
         await connectWallet();
@@ -82,16 +83,13 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
         <span className="wallet-icon">💳</span>
         {getButtonText()}
       </button>
-      
+
       {authenticated && !wallets.length && !user?.wallet && (
-        <button
-          className="connect-wallet-btn"
-          onClick={connectWallet}
-        >
+        <button className="connect-wallet-btn" onClick={connectWallet}>
           Connect Wallet to Play
         </button>
       )}
-      
+
       {authenticated && wallets.length > 0 && (
         <div className="chain-info">
           <span className="chain-label">Chain: Monad Testnet</span>
