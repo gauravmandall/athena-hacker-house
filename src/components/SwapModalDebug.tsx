@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { showSwapModal } from './SwapIntegration';
 
 // Debug component to test if the swap modal opens correctly
 export const SwapModalDebugButton: React.FC = () => {
+  useEffect(() => {
+    console.log('SwapModalDebugButton component mounted');
+    return () => {
+      console.log('SwapModalDebugButton component unmounted');
+    };
+  }, []);
   const handleTestModal = () => {
     console.log('Debug: Manually triggering swap modal with perfect run data...');
-    showSwapModal({
-      bananaPeelCollisions: 0,
-      raceTime: 60.5,
-      hasAvoidedBananaPeels: true,
-    });
+    alert('Perfect button clicked! Check console for more details.');
+    try {
+      showSwapModal({
+        bananaPeelCollisions: 0,
+        raceTime: 60.5,
+        hasAvoidedBananaPeels: true,
+      });
+      console.log('Debug: showSwapModal called successfully');
+    } catch (error) {
+      console.error('Debug: Error calling showSwapModal:', error);
+      alert('Error opening swap modal: ' + error.message);
+    }
   };
 
   const handleTestModalWithCollisions = () => {
     console.log('Debug: Manually triggering swap modal with collisions...');
-    showSwapModal({
-      bananaPeelCollisions: 3,
-      raceTime: 75.2,
-      hasAvoidedBananaPeels: false,
-    });
+    alert('Collisions button clicked! Check console for more details.');
+    try {
+      showSwapModal({
+        bananaPeelCollisions: 3,
+        raceTime: 75.2,
+        hasAvoidedBananaPeels: false,
+      });
+      console.log('Debug: showSwapModal called successfully');
+    } catch (error) {
+      console.error('Debug: Error calling showSwapModal:', error);
+      alert('Error opening swap modal: ' + error.message);
+    }
   };
 
   return (
@@ -30,9 +50,13 @@ export const SwapModalDebugButton: React.FC = () => {
       display: 'flex',
       flexDirection: 'column',
       gap: '10px',
+      pointerEvents: 'auto',
+      userSelect: 'none',
     }}>
       <button
         onClick={handleTestModal}
+        onMouseDown={() => console.log('Debug: Perfect button mousedown')}
+        onMouseUp={() => console.log('Debug: Perfect button mouseup')}
         style={{
           padding: '10px 20px',
           background: '#676fff',
@@ -41,12 +65,20 @@ export const SwapModalDebugButton: React.FC = () => {
           borderRadius: '5px',
           cursor: 'pointer',
           fontFamily: 'Pixelify Sans, cursive',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          pointerEvents: 'auto',
+          userSelect: 'none',
+          outline: 'none',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
         }}
       >
         Test Swap Modal (Perfect)
       </button>
       <button
         onClick={handleTestModalWithCollisions}
+        onMouseDown={() => console.log('Debug: Collisions button mousedown')}
+        onMouseUp={() => console.log('Debug: Collisions button mouseup')}
         style={{
           padding: '10px 20px',
           background: '#ff6767',
@@ -55,10 +87,44 @@ export const SwapModalDebugButton: React.FC = () => {
           borderRadius: '5px',
           cursor: 'pointer',
           fontFamily: 'Pixelify Sans, cursive',
+          fontSize: '14px',
+          fontWeight: 'bold',
+          pointerEvents: 'auto',
+          userSelect: 'none',
+          outline: 'none',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.3)',
         }}
       >
         Test Swap Modal (Collisions)
       </button>
+      <button
+        onClick={() => alert('Simple test button works!')}
+        style={{
+          padding: '5px 10px',
+          background: '#28a745',
+          color: 'white',
+          border: 'none',
+          borderRadius: '3px',
+          cursor: 'pointer',
+          fontSize: '12px',
+          fontFamily: 'monospace',
+          pointerEvents: 'auto',
+          userSelect: 'none',
+          outline: 'none',
+        }}
+      >
+        Simple Test
+      </button>
+      <div style={{
+        padding: '5px 10px',
+        background: 'rgba(0,0,0,0.8)',
+        color: 'white',
+        fontSize: '12px',
+        borderRadius: '3px',
+        fontFamily: 'monospace',
+      }}>
+        Debug buttons loaded
+      </div>
     </div>
   );
 };

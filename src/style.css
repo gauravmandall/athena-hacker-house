@@ -5,6 +5,37 @@
   user-select: none;
 }
 
+/* Allow button interactions */
+button {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+}
+
+/* Debug button styles */
+#swap-modal-root button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: auto !important;
+}
+
+/* Debug buttons container */
+div[style*="z-index: 30000"] {
+  pointer-events: auto !important;
+}
+
+div[style*="z-index: 30000"] button {
+  pointer-events: auto !important;
+  cursor: pointer !important;
+  user-select: auto !important;
+}
+
+/* Ensure all buttons in debug container are clickable */
+div[style*="z-index: 30000"] * {
+  pointer-events: auto !important;
+}
+
 :root {
   --border-color: #aaa;
   --border-dark-color: #7777;

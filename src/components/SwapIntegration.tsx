@@ -15,8 +15,11 @@ export interface SwapModalData {
 
 // Function to show the swap modal
 export function showSwapModal(data: SwapModalData) {
+  console.log('showSwapModal called with data:', data);
+  
   // Create container if it doesn't exist
   if (!swapModalContainer) {
+    console.log('Creating new swap modal container');
     swapModalContainer = document.createElement('div');
     swapModalContainer.id = 'swap-modal-root';
     document.body.appendChild(swapModalContainer);
@@ -24,6 +27,7 @@ export function showSwapModal(data: SwapModalData) {
 
   // Create React root if it doesn't exist
   if (!swapModalRoot) {
+    console.log('Creating new React root for swap modal');
     swapModalRoot = createRoot(swapModalContainer);
   }
 
@@ -57,11 +61,24 @@ export function showSwapModal(data: SwapModalData) {
   };
 
   // Render the modal wrapped with PrivyProvider
-  swapModalRoot.render(
-    <PrivyProvider>
-      <SwapModalWrapper />
-    </PrivyProvider>
-  );
+  console.log('Rendering swap modal with PrivyProvider');
+  try {
+    swapModalRoot.render(
+      <PrivyProvider>
+        <SwapModalWrapper />
+      </PrivyProvider>
+    );
+    console.log('Swap modal rendered successfully');
+  } catch (error) {
+    console.error('Error rendering swap modal:', error);
+    // Fallback: try to render without PrivyProvider
+    try {
+      swapModalRoot.render(<SwapModalWrapper />);
+      console.log('Swap modal rendered without PrivyProvider');
+    } catch (fallbackError) {
+      console.error('Error rendering swap modal even without PrivyProvider:', fallbackError);
+    }
+  }
 }
 
 // Function to hide the swap modal if it's open

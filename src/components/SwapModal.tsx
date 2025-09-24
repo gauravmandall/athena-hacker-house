@@ -18,6 +18,11 @@ export const SwapModal: React.FC<SwapModalProps> = ({
   raceTime,
 }) => {
   const { wallets } = useWallets();
+  
+  // Add error boundary for wallet issues
+  if (!wallets) {
+    console.warn('SwapModal: Wallets not available yet');
+  }
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -57,8 +62,8 @@ export const SwapModal: React.FC<SwapModalProps> = ({
       return;
     }
 
-    if (!wallets[0]) {
-      console.log('No wallet connected');
+    if (!wallets || !wallets[0]) {
+      console.log('No wallet connected or wallets not available');
       setBalance('0');
       return;
     }
@@ -88,7 +93,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
         sellToken.decimals
       );
       const userAddress =
-        wallets[0]?.address || '0x0000000000000000000000000000000000000001'; // Mock address for testing
+        (wallets && wallets[0]?.address) || '0x0000000000000000000000000000000000000001'; // Mock address for testing
 
       const quote = await swapService.getSwapQuote(
         chainId,
@@ -121,7 +126,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
     setSuccess(null);
 
     try {
-      if (!wallets[0]) {
+      if (!wallets || !wallets[0]) {
         // Mock swap for testing without wallet
         setTimeout(() => {
           setSuccess(
