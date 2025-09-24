@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useWallets } from '@privy-io/react-auth';
 import { ethers } from 'ethers';
-import { SwapService } from '../services/swap/swap-service';
+import { SwapService, SwapQuote } from '../services/swap/swap-service';
 import { getTokensByChainId, TokenInfo } from '../config/tokens';
-// import { monadTestnet } from '../config/chains';
 
 interface SwapModalProps {
   isOpen: boolean;
@@ -22,24 +21,22 @@ export const SwapModal: React.FC<SwapModalProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  
-  // Swap state
-  const [chainId, setChainId] = useState(41454); // Default to Monad testnet
+  const [chainId, setChainId] = useState(41454);
   const [sellToken, setSellToken] = useState<TokenInfo | null>(null);
   const [buyToken, setBuyToken] = useState<TokenInfo | null>(null);
   const [sellAmount, setSellAmount] = useState('');
   const [buyAmount, setBuyAmount] = useState('');
   const [slippage, setSlippage] = useState(0.5);
-  const [quote, setQuote] = useState<any>(null);
+  const [quote, setQuote] = useState<SwapQuote | null>(null);
   const [balance, setBalance] = useState<string>('0');
-  
+
   const swapService = SwapService.getInstance();
   const availableTokens = getTokensByChainId(chainId);
 
   useEffect(() => {
     if (isOpen && availableTokens.length > 0) {
-      setSellToken(availableTokens[0]); // Default to MON
-      setBuyToken(availableTokens[1]); // Default to USDC
+      setSellToken(availableTokens[0]);
+      setBuyToken(availableTokens[1]);
     }
   }, [isOpen, chainId]);
 
@@ -60,13 +57,13 @@ export const SwapModal: React.FC<SwapModalProps> = ({
       setBalance('0');
       return;
     }
-    
+
     if (!wallets[0]) {
       console.log('No wallet connected');
       setBalance('0');
       return;
     }
-    
+
     try {
       const ethereumProvider = await wallets[0].getEthereumProvider();
       const provider = new ethers.BrowserProvider(ethereumProvider);
@@ -85,22 +82,28 @@ export const SwapModal: React.FC<SwapModalProps> = ({
 
   const fetchQuote = async () => {
     if (!sellAmount || !sellToken || !buyToken) return;
-    
+
     try {
-      const parsedAmount = swapService.parseTokenAmount(sellAmount, sellToken.decimals);
-      const userAddress = wallets[0]?.address || '0x0000000000000000000000000000000000000001'; // Mock address for testing
-      
+      const parsedAmount = swapService.parseTokenAmount(
+        sellAmount,
+        sellToken.decimals
+      );
+      const userAddress =
+        wallets[0]?.address || '0x0000000000000000000000000000000000000001'; // Mock address for testing
+
       const quote = await swapService.getSwapQuote(
         chainId,
-        sellToken.symbol,  // Use symbol instead of address for Monad mock
-        buyToken.symbol,   // Use symbol instead of address for Monad mock
+        sellToken.symbol, // Use symbol instead of address for Monad mock
+        buyToken.symbol, // Use symbol instead of address for Monad mock
         parsedAmount,
         userAddress,
         slippage
       );
-      
+
       setQuote(quote);
-      setBuyAmount(swapService.formatTokenAmount(quote.buyAmount, buyToken.decimals));
+      setBuyAmount(
+        swapService.formatTokenAmount(quote.buyAmount, buyToken.decimals)
+      );
       setError(null); // Clear any previous errors
     } catch (err) {
       console.error('Failed to fetch quote:', err);
@@ -113,43 +116,46 @@ export const SwapModal: React.FC<SwapModalProps> = ({
       setError('Missing swap details. Please try again.');
       return;
     }
-    
+
     setIsLoading(true);
     setError(null);
     setSuccess(null);
-    
+
     try {
       if (!wallets[0]) {
         // Mock swap for testing without wallet
         setTimeout(() => {
-          setSuccess(`Mock swap successful! Swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`);
+          setSuccess(
+            `Mock swap successful! Swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`
+          );
           setSellAmount('');
           setBuyAmount('');
           setIsLoading(false);
         }, 2000);
         return;
       }
-      
+
       const ethereumProvider = await wallets[0].getEthereumProvider();
       const provider = new ethers.BrowserProvider(ethereumProvider);
       const signer = await provider.getSigner();
-      
-      // For Monad testnet, use mock swap to avoid gas fees
+
       const network = await provider.getNetwork();
       if (Number(network.chainId) === 41454) {
         console.log('Monad testnet detected - using mock swap');
         setTimeout(() => {
-          setSuccess(`Mock swap successful! Swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`);
+          setSuccess(
+            `Mock swap successful! Swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`
+          );
           setSellAmount('');
           setBuyAmount('');
           setIsLoading(false);
-          
+
           // Refresh balance
           fetchBalance();
         }, 2000);
         return;
       }
-      
+
       // For other networks, execute real swap
       // Check and set allowance if needed
       if (sellToken.address !== '0x0000000000000000000000000000000000000000') {
@@ -160,20 +166,24 @@ export const SwapModal: React.FC<SwapModalProps> = ({
           signer
         );
       }
-      
+
       // Execute swap
       const tx = await swapService.executeSwap(quote, signer);
       await tx.wait();
-      
-      setSuccess(`Successfully swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`);
+
+      setSuccess(
+        `Successfully swapped ${sellAmount} ${sellToken.symbol} for ${buyAmount} ${buyToken.symbol}!`
+      );
       setSellAmount('');
       setBuyAmount('');
-      
+
       // Refresh balance
       fetchBalance();
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Swap failed:', err);
-      setError(err.message || 'Swap failed. Please try again.');
+      const errorMessage =
+        err instanceof Error ? err.message : 'Swap failed. Please try again.';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -192,7 +202,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
     const baseReward = 100; // Base MON tokens
     const noBananaPeelBonus = bananaPeelCollisions === 0 ? 500 : 0; // 500 MON bonus for no banana collisions
     const timeBonus = Math.max(0, 300 - Math.floor(raceTime)); // Time-based bonus
-    
+
     return {
       base: baseReward,
       noBanana: noBananaPeelBonus,
@@ -208,11 +218,13 @@ export const SwapModal: React.FC<SwapModalProps> = ({
   return (
     <div className="swap-modal-overlay">
       <div className="swap-modal">
-        <button className="swap-close-btn" onClick={onClose}>✕</button>
-        
+        <button className="swap-close-btn" onClick={onClose}>
+          ✕
+        </button>
+
         <div className="swap-header">
           <h2 className="swap-title">🏁 Race Complete!</h2>
-          
+
           {bananaPeelCollisions === 0 ? (
             <div className="achievement-banner gold">
               <span className="achievement-icon">🏆</span>
@@ -226,7 +238,10 @@ export const SwapModal: React.FC<SwapModalProps> = ({
               <span className="achievement-icon">🥈</span>
               <div>
                 <h3>Race Finished!</h3>
-                <p>{bananaPeelCollisions} banana peel{bananaPeelCollisions > 1 ? 's' : ''} hit</p>
+                <p>
+                  {bananaPeelCollisions} banana peel
+                  {bananaPeelCollisions > 1 ? 's' : ''} hit
+                </p>
               </div>
             </div>
           )}
@@ -258,26 +273,31 @@ export const SwapModal: React.FC<SwapModalProps> = ({
 
         {bananaPeelCollisions === 0 ? (
           <div className="swap-section">
-            <h3>Token Swap {chainId === 41454 && "(Monad Testnet - Mock Mode)"}</h3>
+            <h3>
+              Token Swap {chainId === 41454 && '(Monad Testnet - Mock Mode)'}
+            </h3>
             {chainId === 41454 && (
-              <div className="info-message" style={{ 
-                background: 'rgba(255, 215, 0, 0.1)', 
-                border: '1px solid #ffd700', 
-                padding: '0.5rem', 
-                borderRadius: '5px',
-                marginBottom: '1rem',
-                fontSize: '0.85rem',
-                color: '#ffd700'
-              }}>
+              <div
+                className="info-message"
+                style={{
+                  background: 'rgba(255, 215, 0, 0.1)',
+                  border: '1px solid #ffd700',
+                  padding: '0.5rem',
+                  borderRadius: '5px',
+                  marginBottom: '1rem',
+                  fontSize: '0.85rem',
+                  color: '#ffd700',
+                }}
+              >
                 Monad Testnet: Using mock swaps to avoid gas fees
               </div>
             )}
-            
+
             <div className="chain-selector">
               <label>Network:</label>
-              <select 
-                value={chainId} 
-                onChange={(e) => setChainId(Number(e.target.value))}
+              <select
+                value={chainId}
+                onChange={e => setChainId(Number(e.target.value))}
                 className="chain-select"
               >
                 <option value={41454}>Monad Testnet</option>
@@ -294,13 +314,15 @@ export const SwapModal: React.FC<SwapModalProps> = ({
                     type="number"
                     placeholder="0.0"
                     value={sellAmount}
-                    onChange={(e) => setSellAmount(e.target.value)}
+                    onChange={e => setSellAmount(e.target.value)}
                     disabled={isLoading}
                   />
-                  <select 
+                  <select
                     value={sellToken?.symbol || ''}
-                    onChange={(e) => {
-                      const token = availableTokens.find(t => t.symbol === e.target.value);
+                    onChange={e => {
+                      const token = availableTokens.find(
+                        t => t.symbol === e.target.value
+                      );
                       setSellToken(token || null);
                     }}
                     className="token-select"
@@ -313,7 +335,11 @@ export const SwapModal: React.FC<SwapModalProps> = ({
                   </select>
                 </div>
                 <div className="balance-info">
-                  Balance: {sellToken ? swapService.formatTokenAmount(balance, sellToken.decimals) : '0'} {sellToken?.symbol}
+                  Balance:{' '}
+                  {sellToken
+                    ? swapService.formatTokenAmount(balance, sellToken.decimals)
+                    : '0'}{' '}
+                  {sellToken?.symbol}
                 </div>
               </div>
 
@@ -330,10 +356,12 @@ export const SwapModal: React.FC<SwapModalProps> = ({
                     value={buyAmount}
                     readOnly
                   />
-                  <select 
+                  <select
                     value={buyToken?.symbol || ''}
-                    onChange={(e) => {
-                      const token = availableTokens.find(t => t.symbol === e.target.value);
+                    onChange={e => {
+                      const token = availableTokens.find(
+                        t => t.symbol === e.target.value
+                      );
                       setBuyToken(token || null);
                     }}
                     className="token-select"
@@ -355,7 +383,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
                   max="5"
                   step="0.1"
                   value={slippage}
-                  onChange={(e) => setSlippage(parseFloat(e.target.value))}
+                  onChange={e => setSlippage(parseFloat(e.target.value))}
                 />
               </div>
 
@@ -363,28 +391,25 @@ export const SwapModal: React.FC<SwapModalProps> = ({
                 <div className="swap-details">
                   <div className="detail-row">
                     <span>Rate:</span>
-                    <span>1 {sellToken?.symbol} = {parseFloat(quote.price).toFixed(4)} {buyToken?.symbol}</span>
+                    <span>
+                      1 {sellToken?.symbol} ={' '}
+                      {parseFloat(quote.price).toFixed(4)} {buyToken?.symbol}
+                    </span>
                   </div>
                   <div className="detail-row">
                     <span>Est. Gas:</span>
-                    <span>{ethers.formatUnits(quote.estimatedGas, 'gwei')} GWEI</span>
+                    <span>
+                      {ethers.formatUnits(quote.estimatedGas, 'gwei')} GWEI
+                    </span>
                   </div>
                 </div>
               )}
 
-              {error && (
-                <div className="error-message">
-                  {error}
-                </div>
-              )}
+              {error && <div className="error-message">{error}</div>}
 
-              {success && (
-                <div className="success-message">
-                  {success}
-                </div>
-              )}
+              {success && <div className="success-message">{success}</div>}
 
-              <button 
+              <button
                 className="swap-execute-btn"
                 onClick={handleSwap}
                 disabled={!sellAmount || !buyAmount || isLoading}
@@ -396,7 +421,10 @@ export const SwapModal: React.FC<SwapModalProps> = ({
         ) : (
           <div className="swap-locked">
             <h3>🔒 Swap Feature Locked</h3>
-            <p>Complete a race without hitting any banana peels to unlock token swapping!</p>
+            <p>
+              Complete a race without hitting any banana peels to unlock token
+              swapping!
+            </p>
             <p className="tip">Tip: Watch out for banana peels on the track!</p>
           </div>
         )}
