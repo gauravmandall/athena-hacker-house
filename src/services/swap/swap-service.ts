@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { ethers } from 'ethers';
-import type { TokenInfo } from '../../config/tokens';
-import { getTokensByChainId } from '../../config/tokens';
+import { type TokenInfo, getTokensByChainId } from '../../config/tokens';
 
 export interface SwapQuote {
   price: string;
@@ -21,8 +20,6 @@ export interface SwapQuote {
 export class SwapService {
   private static instance: SwapService;
   private readonly API_BASE_URL = 'https://api.0x.org';
-  // private readonly MONAD_API_BASE = 'https://monad-swap-api.xyz'; // Placeholder for Monad-specific API
-  
   private constructor() {}
 
   public static getInstance(): SwapService {
@@ -32,7 +29,6 @@ export class SwapService {
     return SwapService.instance;
   }
 
-  // Get swap quote from 0x API
   public async getSwapQuote(
     chainId: number,
     sellToken: string,
@@ -42,12 +38,16 @@ export class SwapService {
     slippagePercentage: number = 0.5
   ): Promise<SwapQuote> {
     try {
-      // For Monad testnet, use a custom implementation or wait for 0x support
       if (chainId === 41454) {
-        return this.getMonadSwapQuote(sellToken, buyToken, sellAmount, userAddress, slippagePercentage);
+        return this.getMonadSwapQuote(
+          sellToken,
+          buyToken,
+          sellAmount,
+          userAddress,
+          slippagePercentage
+        );
       }
 
-      // For supported chains (Ethereum, Polygon), use 0x API
       const params = new URLSearchParams({
         sellToken,
         buyToken,
@@ -56,11 +56,16 @@ export class SwapService {
         slippagePercentage: slippagePercentage.toString(),
       });
 
-      const response = await axios.get(`${this.API_BASE_URL}/swap/v1/quote?${params}`, {
-        headers: {
-          '0x-api-key': import.meta.env.VITE_0X_API_KEY || '', // Add your 0x API key
-        },
-      });
+      const response = await axios.get(
+        `${this.API_BASE_URL}/swap/v1/quote?${params}`,
+        {
+          headers: {
+            '0x-api-key':
+              import.meta.env.VITE_0X_API_KEY ||
+              'b8103a3f-19dd-43e8-aff7-07c2dbd50ae8',
+          },
+        }
+      );
 
       return response.data;
     } catch (error) {
@@ -69,7 +74,6 @@ export class SwapService {
     }
   }
 
-  // Custom implementation for Monad swaps (placeholder until 0x supports Monad)
   private async getMonadSwapQuote(
     sellToken: string,
     buyToken: string,
@@ -77,38 +81,39 @@ export class SwapService {
     _userAddress: string, // Will be used when implementing actual DEX integration
     _slippagePercentage: number // Will be used when implementing actual DEX integration
   ): Promise<SwapQuote> {
-    // This is a placeholder implementation for Monad
-    // In production, you would integrate with Monad's DEX or swap protocol
-    
-    // Convert sellAmount from wei to human readable format for calculation
-    const sellAmountInTokens = parseFloat(sellAmount) / Math.pow(10, 18); // Assuming 18 decimals for MON
-    
+    const sellAmountInTokens = parseFloat(sellAmount) / Math.pow(10, 18);
+
     const mockPrices: { [key: string]: number } = {
-      'MON-USDC': 0.5,    // 1 MON = 0.5 USDC
-      'USDC-MON': 2.0,    // 1 USDC = 2 MON
-      'MON-WMON': 1.0,    // 1 MON = 1 WMON
-      'WMON-MON': 1.0,    // 1 WMON = 1 MON
-      'WMON-USDC': 0.5,   // 1 WMON = 0.5 USDC
-      'USDC-WMON': 2.0,   // 1 USDC = 2 WMON
+      'MON-USDC': 0.5, // 1 MON = 0.5 USDC
+      'USDC-MON': 2.0, // 1 USDC = 2 MON
+      'MON-WMON': 1.0, // 1 MON = 1 WMON
+      'WMON-MON': 1.0, // 1 WMON = 1 MON
+      'WMON-USDC': 0.5, // 1 WMON = 0.5 USDC
+      'USDC-WMON': 2.0, // 1 USDC = 2 WMON
     };
-    
+
     // Determine price based on token pair
     let price = 1;
     const pair = `${sellToken}-${buyToken}`;
     price = mockPrices[pair] || 1;
-    
+
     // Calculate buy amount in tokens, then convert back to wei
     const buyAmountInTokens = sellAmountInTokens * price;
     const buyAmountInWei = Math.floor(buyAmountInTokens * Math.pow(10, 6)); // USDC has 6 decimals
-    
-    console.log(`Monad Swap Quote: ${sellAmountInTokens} ${sellToken} -> ${buyAmountInTokens} ${buyToken} (price: ${price})`);
-    
+
+    console.log(
+      `Monad Swap Quote: ${sellAmountInTokens} ${sellToken} -> ${buyAmountInTokens} ${buyToken} (price: ${price})`
+    );
+
     const mockQuote: SwapQuote = {
       price: price.toString(),
       guaranteedPrice: (price * 0.99).toString(), // 1% slippage
       to: '0x1234567890123456789012345678901234567890', // Mock Monad DEX address
       data: '0x00', // Transaction data would be generated here
-      value: sellToken === '0x0000000000000000000000000000000000000000' ? sellAmount : '0',
+      value:
+        sellToken === '0x0000000000000000000000000000000000000000'
+          ? sellAmount
+          : '0',
       gas: '200000',
       estimatedGas: '180000',
       gasPrice: '20000000000',
@@ -128,10 +133,10 @@ export class SwapService {
   ): Promise<ethers.TransactionResponse> {
     // For Monad testnet, this is a mock implementation
     // In production, you would execute real swap transactions
-    
+
     console.log('Executing mock swap transaction...');
     console.log('Quote:', quote);
-    
+
     // Create a mock transaction response
     const mockTx = {
       hash: '0x' + Math.random().toString(16).substr(2, 64),
@@ -147,9 +152,9 @@ export class SwapService {
           blockNumber: Math.floor(Math.random() * 1000000),
           gasUsed: ethers.toBigInt(quote.estimatedGas),
         };
-      }
-    } as any;
-    
+      },
+    } as unknown as ethers.TransactionResponse;
+
     return mockTx;
   }
 
@@ -167,13 +172,18 @@ export class SwapService {
 
     const tokenContract = new ethers.Contract(
       tokenAddress,
-      ['function allowance(address owner, address spender) view returns (uint256)',
-       'function approve(address spender, uint256 amount) returns (bool)'],
+      [
+        'function allowance(address owner, address spender) view returns (uint256)',
+        'function approve(address spender, uint256 amount) returns (bool)',
+      ],
       signer
     );
 
     const signerAddress = await signer.getAddress();
-    const currentAllowance = await tokenContract.allowance(signerAddress, spenderAddress);
+    const currentAllowance = await tokenContract.allowance(
+      signerAddress,
+      spenderAddress
+    );
 
     if (currentAllowance < BigInt(amount)) {
       // Set allowance to max uint256 for convenience
@@ -197,11 +207,13 @@ export class SwapService {
       try {
         const network = await provider.getNetwork();
         chainId = Number(network.chainId);
-        console.log(`Fetching balance on chain ${chainId} for token ${tokenAddress}`);
+        console.log(
+          `Fetching balance on chain ${chainId} for token ${tokenAddress}`
+        );
       } catch {
         // If we can't get network, continue with default
       }
-      
+
       if (tokenAddress === '0x0000000000000000000000000000000000000000') {
         // Native token balance (MON, ETH, MATIC)
         const balance = await provider.getBalance(userAddress);
@@ -270,7 +282,7 @@ export class SwapService {
         data: quote.data,
         value: quote.value,
       });
-      
+
       // Add 20% buffer
       return (gasEstimate * 120n) / 100n;
     } catch (error) {
