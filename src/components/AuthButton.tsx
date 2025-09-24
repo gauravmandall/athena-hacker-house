@@ -20,7 +20,6 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
     if (authenticated && user) {
       authService.setUser(user);
 
-      // Get the wallet address
       const walletAddress = wallets?.[0]?.address || user?.wallet?.address;
 
       if (walletAddress && onAuthenticated) {
@@ -36,7 +35,6 @@ export const AuthButton: React.FC<AuthButtonProps> = ({
       authService.setLoading(true);
       await login();
 
-      // If user logs in with email, prompt to connect wallet
       if (authenticated && !wallets.length) {
         await connectWallet();
       }

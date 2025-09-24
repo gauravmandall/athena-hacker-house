@@ -32,9 +32,6 @@ Create a `.env` file in the project root:
 ```env
 # Privy Configuration
 VITE_PRIVY_APP_ID=your_privy_app_id_here
-
-# Optional: Default Chain
-VITE_DEFAULT_CHAIN=monad
 ```
 
 ### 4. Install Dependencies
