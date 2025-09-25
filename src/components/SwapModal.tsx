@@ -18,7 +18,7 @@ export const SwapModal: React.FC<SwapModalProps> = ({
   raceTime,
 }) => {
   const { wallets } = useWallets();
-  
+
   // Add error boundary for wallet issues
   if (!wallets) {
     console.warn('SwapModal: Wallets not available yet');
@@ -93,7 +93,8 @@ export const SwapModal: React.FC<SwapModalProps> = ({
         sellToken.decimals
       );
       const userAddress =
-        (wallets && wallets[0]?.address) || '0x0000000000000000000000000000000000000001'; // Mock address for testing
+        (wallets && wallets[0]?.address) ||
+        '0x0000000000000000000000000000000000000001'; // Mock address for testing
 
       const quote = await swapService.getSwapQuote(
         chainId,
@@ -424,12 +425,14 @@ export const SwapModal: React.FC<SwapModalProps> = ({
           </div>
         ) : (
           <div className="swap-locked">
-            <h3>🔒 Swap Feature Locked</h3>
+            <h3>YOU FUCKING LOSER 🔒 Swap Feature Locked</h3>
             <p>
               Complete a race without hitting any banana peels to unlock token
               swapping!
             </p>
-            <p className="tip">Tip: Watch out for banana peels on the track!</p>
+            <p className="tip">
+              Tip: Watch out for banana peels on the track! TRY AGAIN RETARD
+            </p>
           </div>
         )}
 
