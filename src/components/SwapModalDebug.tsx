@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { showSwapModal } from './SwapIntegration';
 
-// Debug component to test if the swap modal opens correctly
 export const SwapModalDebugButton: React.FC = () => {
   useEffect(() => {
     console.log('SwapModalDebugButton component mounted');
@@ -10,7 +9,6 @@ export const SwapModalDebugButton: React.FC = () => {
     };
   }, []);
   const handleTestModal = () => {
-    console.log('Debug: Manually triggering swap modal with perfect run data...');
     alert('Perfect button clicked! Check console for more details.');
     try {
       showSwapModal({
@@ -21,7 +19,10 @@ export const SwapModalDebugButton: React.FC = () => {
       console.log('Debug: showSwapModal called successfully');
     } catch (error) {
       console.error('Debug: Error calling showSwapModal:', error);
-      alert('Error opening swap modal: ' + error.message);
+      alert(
+        'Error opening swap modal: ' +
+          (error instanceof Error ? error.message : String(error))
+      );
     }
   };
 
@@ -37,22 +38,27 @@ export const SwapModalDebugButton: React.FC = () => {
       console.log('Debug: showSwapModal called successfully');
     } catch (error) {
       console.error('Debug: Error calling showSwapModal:', error);
-      alert('Error opening swap modal: ' + error.message);
+      alert(
+        'Error opening swap modal: ' +
+          (error instanceof Error ? error.message : String(error))
+      );
     }
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      bottom: '20px',
-      right: '20px',
-      zIndex: 30000,
-      display: 'flex',
-      flexDirection: 'column',
-      gap: '10px',
-      pointerEvents: 'auto',
-      userSelect: 'none',
-    }}>
+    <div
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        zIndex: 30000,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        pointerEvents: 'auto',
+        userSelect: 'none',
+      }}
+    >
       <button
         onClick={handleTestModal}
         onMouseDown={() => console.log('Debug: Perfect button mousedown')}
@@ -115,14 +121,16 @@ export const SwapModalDebugButton: React.FC = () => {
       >
         Simple Test
       </button>
-      <div style={{
-        padding: '5px 10px',
-        background: 'rgba(0,0,0,0.8)',
-        color: 'white',
-        fontSize: '12px',
-        borderRadius: '3px',
-        fontFamily: 'monospace',
-      }}>
+      <div
+        style={{
+          padding: '5px 10px',
+          background: 'rgba(0,0,0,0.8)',
+          color: 'white',
+          fontSize: '12px',
+          borderRadius: '3px',
+          fontFamily: 'monospace',
+        }}
+      >
         Debug buttons loaded
       </div>
     </div>
