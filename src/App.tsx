@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { PrivyProvider } from './components/PrivyProvider';
 import { AuthButton } from './components/AuthButton';
 import { AuthService } from './services/auth/auth-service';
-import { SwapModalDebugButton } from './components/SwapModalDebug';
 // import { showSwapModal } from './components/SwapIntegration'; // Used dynamically in scoreboard
 import Game from './services/game';
 
@@ -18,7 +17,7 @@ const AuthUI: React.FC<AppProps> = ({ gameInstance }) => {
 
   useEffect(() => {
     // Subscribe to auth state changes
-    const unsubscribe = authService.subscribe((state) => {
+    const unsubscribe = authService.subscribe(state => {
       setIsAuthenticated(state.isAuthenticated);
       setWalletAddress(state.walletAddress);
     });
@@ -29,12 +28,12 @@ const AuthUI: React.FC<AppProps> = ({ gameInstance }) => {
   const handleAuthenticated = (address: string) => {
     console.log('Wallet connected:', address);
     setWalletAddress(address);
-    
+
     // Update the game instance with the wallet address
     if (gameInstance) {
       (gameInstance as any).walletAddress = address;
     }
-    
+
     // Hide auth overlay when authenticated
     const authOverlay = document.getElementById('auth-overlay');
     if (authOverlay) {
@@ -49,19 +48,19 @@ const AuthUI: React.FC<AppProps> = ({ gameInstance }) => {
           <img src="/logo.png" alt="Monadland" className="auth-logo" />
           <h1 className="auth-title">Monadland</h1>
           <p className="auth-subtitle">Connect your wallet to start racing</p>
-          
-          <AuthButton 
+
+          <AuthButton
             onAuthenticated={handleAuthenticated}
             className="main-auth-button"
           />
-          
+
           {isAuthenticated && walletAddress && (
             <div className="wallet-info">
               <p>Connected to Monad Network</p>
               <p className="wallet-address">{walletAddress}</p>
             </div>
           )}
-          
+
           <div className="chain-support">
             <p>Supported Networks:</p>
             <ul>
@@ -72,8 +71,6 @@ const AuthUI: React.FC<AppProps> = ({ gameInstance }) => {
           </div>
         </div>
       </div>
-      {/* Debug button for testing swap modal */}
-      <SwapModalDebugButton />
     </>
   );
 };
