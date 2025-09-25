@@ -53,7 +53,7 @@ To run the project locally:
 Using **npm**:
 
 ```bash
-git clone https://github.com/your-username/monadland.git
+git clone https://github.com/gauravmandall/monadland.git
 cd monadland
 pnpm install
 pnpm run dev
@@ -62,7 +62,7 @@ pnpm run dev
 Using **yarn**:
 
 ```bash
-git clone https://github.com/your-username/monadland.git
+git clone https://github.com/gauravmandall/monadland.git
 cd monadland
 pnpm install
 pnpm run dev
