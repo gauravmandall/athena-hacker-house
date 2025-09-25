@@ -14,7 +14,7 @@ Our goal was to explore game development fundamentals, with each team member foc
 
 ## 🎮 Try It Live
 
-🔗 **Play the Game:** [MonadLand Online](https://lnkd.in/gByPcksi)
+🔗 **Play the Game:** [MonadLand Online](https://monadland.vercel.app)
 
 ---
 
@@ -24,11 +24,6 @@ Our goal was to explore game development fundamentals, with each team member foc
 - `/types` – Class/Struct models
 - `/public` – Static assets for hosting
 
----
-
-## 📚 Documentation
-
-🔗 **Full Documentation:** [MonadLand Docs](https://lnkd.in/gP_zEcyu)
 
 ---
 
@@ -81,7 +76,7 @@ Then open http://localhost:5173 in your browser.
 
 - [amaan8429](https://github.com/amaan8429)
 - [ayush-that](https://github.com/ayush-that)
-- [gaurav](https://github.com/gaurav)
+- [gaurav](https://github.com/gauravmandall)
 
 ---
 
