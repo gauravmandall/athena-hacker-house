@@ -16,12 +16,19 @@ export interface SwapModalData {
 // Function to show the swap modal
 export function showSwapModal(data: SwapModalData) {
   console.log('showSwapModal called with data:', data);
-  
+
   // Create container if it doesn't exist
   if (!swapModalContainer) {
     console.log('Creating new swap modal container');
     swapModalContainer = document.createElement('div');
     swapModalContainer.id = 'swap-modal-root';
+    swapModalContainer.style.position = 'fixed';
+    swapModalContainer.style.top = '0';
+    swapModalContainer.style.left = '0';
+    swapModalContainer.style.width = '100vw';
+    swapModalContainer.style.height = '100vh';
+    swapModalContainer.style.zIndex = '99999';
+    swapModalContainer.style.pointerEvents = 'none';
     document.body.appendChild(swapModalContainer);
   }
 
@@ -76,7 +83,10 @@ export function showSwapModal(data: SwapModalData) {
       swapModalRoot.render(<SwapModalWrapper />);
       console.log('Swap modal rendered without PrivyProvider');
     } catch (fallbackError) {
-      console.error('Error rendering swap modal even without PrivyProvider:', fallbackError);
+      console.error(
+        'Error rendering swap modal even without PrivyProvider:',
+        fallbackError
+      );
     }
   }
 }

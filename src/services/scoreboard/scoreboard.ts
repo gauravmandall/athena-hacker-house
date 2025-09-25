@@ -147,28 +147,56 @@ export class Scoreboard {
       playerController.finishedTime = this.currentTime;
       UiService.showSkipButton();
 
-      // Show swap modal if player avoided all banana peels
-      console.log('Race finished! Banana peel collisions:', playerController.bananaPeelCollisions);
-      console.log('Has avoided banana peels:', playerController.hasAvoidedBananaPeels);
-      
+      // Show swap modal for perfect runs (0 collisions) or if player hit 3+ banana peels
+      console.log(
+        'Race finished! Banana peel collisions:',
+        playerController.bananaPeelCollisions
+      );
+      console.log(
+        'Has avoided banana peels:',
+        playerController.hasAvoidedBananaPeels
+      );
+
       // Store race data for modal
       const raceData = {
         bananaPeelCollisions: playerController.bananaPeelCollisions,
         raceTime: this.currentTime,
         hasAvoidedBananaPeels: playerController.bananaPeelCollisions === 0,
       };
-      
-      // Show swap modal ONLY if no banana peels were hit
+
+      // Show swap modal for perfect runs (0 collisions) OR if player hit 3+ banana peels
       if (playerController.bananaPeelCollisions === 0) {
         console.log('Perfect run! Opening swap modal in 1 second...');
-        
+
         // Add a small delay to ensure the race finish UI is visible first
         setTimeout(() => {
           console.log('Loading swap modal module...');
           // Dynamically import and show the swap modal to avoid circular dependencies
           import('../../components/SwapIntegration')
             .then(({ showSwapModal }) => {
-              console.log('SwapIntegration loaded successfully, showing modal...');
+              console.log(
+                'SwapIntegration loaded successfully, showing modal...'
+              );
+              showSwapModal(raceData);
+            })
+            .catch(error => {
+              console.error('Failed to load swap modal:', error);
+            });
+        }, 1000);
+      } else if (playerController.bananaPeelCollisions >= 3) {
+        console.log(
+          `Hit ${playerController.bananaPeelCollisions} banana peels - showing swap modal for collisions!`
+        );
+
+        // Add a small delay to ensure the race finish UI is visible first
+        setTimeout(() => {
+          console.log('Loading swap modal module for collision case...');
+          // Dynamically import and show the swap modal to avoid circular dependencies
+          import('../../components/SwapIntegration')
+            .then(({ showSwapModal }) => {
+              console.log(
+                'SwapIntegration loaded successfully, showing modal for collisions...'
+              );
               showSwapModal(raceData);
             })
             .catch(error => {
@@ -176,7 +204,9 @@ export class Scoreboard {
             });
         }, 1000);
       } else {
-        console.log(`Hit ${playerController.bananaPeelCollisions} banana peels - swap modal not shown`);
+        console.log(
+          `Hit ${playerController.bananaPeelCollisions} banana peels - swap modal not shown (need 0 or 3+)`
+        );
       }
 
       if (

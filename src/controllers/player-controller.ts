@@ -37,7 +37,10 @@ class PlayerController extends PhysicsBasedController {
     // Initialize banana peel tracking
     this.bananaPeelCollisions = 0;
     this.hasAvoidedBananaPeels = true;
-    console.log('Player controller initialized - banana collisions:', this.bananaPeelCollisions);
+    console.log(
+      'Player controller initialized - banana collisions:',
+      this.bananaPeelCollisions
+    );
 
     this.updateCurrentSprite();
 

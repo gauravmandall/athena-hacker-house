@@ -101,11 +101,23 @@ class GameScene extends Scene {
         this.track.traction
       );
       await this.initEffectObjects();
+      // Add guaranteed banana peels for testing the 3-collision feature
+      this.effectObjects.push(new BananaPeelObstacle({ x: 180, y: 220 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 420, y: 280 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 320, y: 380 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 480, y: 120 }));
+      console.log('Added guaranteed banana peels for testing in normal mode');
     }
     this.initPauseListeners();
     await startGameWithCountdown();
     if (tutorial) {
       await this.initTutorial();
+      // Add extra banana peels for testing the 3-collision feature
+      this.effectObjects.push(new BananaPeelObstacle({ x: 200, y: 250 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 450, y: 300 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 150, y: 400 }));
+      this.effectObjects.push(new BananaPeelObstacle({ x: 500, y: 150 }));
+      console.log('Added extra banana peels for testing in tutorial mode');
     }
     this.initGameListeners();
     this.music.loop = true;

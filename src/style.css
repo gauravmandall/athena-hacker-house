@@ -21,18 +21,18 @@ button {
 }
 
 /* Debug buttons container */
-div[style*="z-index: 30000"] {
+div[style*='z-index: 30000'] {
   pointer-events: auto !important;
 }
 
-div[style*="z-index: 30000"] button {
+div[style*='z-index: 30000'] button {
   pointer-events: auto !important;
   cursor: pointer !important;
   user-select: auto !important;
 }
 
 /* Ensure all buttons in debug container are clickable */
-div[style*="z-index: 30000"] * {
+div[style*='z-index: 30000'] * {
   pointer-events: auto !important;
 }
 
@@ -1059,7 +1059,8 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20000;
+  z-index: 99999;
+  pointer-events: auto;
   animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -1328,7 +1329,7 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-.slippage-settings input[type="range"] {
+.slippage-settings input[type='range'] {
   width: 100%;
   cursor: pointer;
 }
